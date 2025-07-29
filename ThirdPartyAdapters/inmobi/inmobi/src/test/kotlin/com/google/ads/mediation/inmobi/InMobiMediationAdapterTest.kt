@@ -642,19 +642,15 @@ class InMobiMediationAdapterTest {
     assertThat(tokenCaptor.firstValue).isEqualTo(biddingToken.toByteArray())
   }
 
-  private fun <MediationAdT, MediationAdCallbackT> assertFailureCallbackAdError(
-    error: Int,
-    adLoadCallback: MediationAdLoadCallback<MediationAdT, MediationAdCallbackT>,
-  ) {
-    val captor = argumentCaptor<AdError>()
-    verify(adLoadCallback).onFailure(captor.capture())
-    assertThat(captor.firstValue.code).isEqualTo(error)
-  }
 
+  @Test
+  fun sanityCheckCICDExampleShouldSucceed() {
+    assertThat(1).isEqualTo(1)
+  }
 
   @Test
   fun sanityCheckCICDExampleShouldFail() {
-    assertThat(1).isEqualTo(0)
+    assertThat(1).isEqualTo(99)
   }
 
   private fun <MediationAdT, MediationAdCallbackT> assertFailureCallbackAdError(
@@ -665,6 +661,10 @@ class InMobiMediationAdapterTest {
     verify(adLoadCallback).onFailure(captor.capture())
     assertThat(captor.firstValue.code).isEqualTo(error)
   }
+
+
+
+
 
 
 
