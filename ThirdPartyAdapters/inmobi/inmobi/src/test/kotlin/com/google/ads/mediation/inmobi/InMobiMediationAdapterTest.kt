@@ -651,6 +651,25 @@ class InMobiMediationAdapterTest {
     assertThat(captor.firstValue.code).isEqualTo(error)
   }
 
+
+  @Test
+  fun sanityCheckCICDExampleShouldFail() {
+    assertThat(1).isEqualTo(0)
+  }
+
+  private fun <MediationAdT, MediationAdCallbackT> assertFailureCallbackAdError(
+    error: Int,
+    adLoadCallback: MediationAdLoadCallback<MediationAdT, MediationAdCallbackT>,
+  ) {
+    val captor = argumentCaptor<AdError>()
+    verify(adLoadCallback).onFailure(captor.capture())
+    assertThat(captor.firstValue.code).isEqualTo(error)
+  }
+
+
+
+
+
   companion object {
     private const val biddingToken = "BiddingToken"
     private const val accountId = "12345"
