@@ -648,11 +648,10 @@ class InMobiMediationAdapterTest {
     assertThat(1).isEqualTo(1)
   }
 
-  @Test
-  fun sanityCheckCICDExampleShouldFail() {
-    assertThat(1).isEqualTo(99)
-  }
-
+//  @Test
+//  fun sanityCheckCICDExampleShouldFail() {
+//    assertThat(1).isEqualTo(99)
+//  }
   private fun <MediationAdT, MediationAdCallbackT> assertFailureCallbackAdError(
     error: Int,
     adLoadCallback: MediationAdLoadCallback<MediationAdT, MediationAdCallbackT>,
