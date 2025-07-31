@@ -7,7 +7,7 @@ on: workflow_dispatch
 jobs:
   android:
     runs-on: macos-latest
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
@@ -24,8 +24,88 @@ jobs:
           cd ThirdPartyAdapters/applovin/
           gradle wrapper
           ./gradlew test --scan
+      - name: "Unit Tests - Bidmachine"
+        run: |
+          cd ThirdPartyAdapters/bidmachine/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - Chartboost"
+        run: |
+          cd ThirdPartyAdapters/chartboost/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - DTExchange"
+        run: |
+          cd ThirdPartyAdapters/dtexchange/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - IMobile"
+        run: |
+          cd ThirdPartyAdapters/imobile/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - InMobi"
+        run: |
+          cd ThirdPartyAdapters/inmobi/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - IronSource"
+        run: |
+          cd ThirdPartyAdapters/ironsource/
+          gradle wrapper
+          ./gradlew test --scan
       - name: "Unit Tests - LiftOff"
         run: |
           cd ThirdPartyAdapters/liftoffmonetize/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - Line"
+        run: |
+          cd ThirdPartyAdapters/line/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - Maio"
+        run: |
+          cd ThirdPartyAdapters/maio/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - Meta"
+        run: |
+          cd ThirdPartyAdapters/meta/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - Mintegral"
+        run: |
+          cd ThirdPartyAdapters/mintegral/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - Moloco"
+        run: |
+          cd ThirdPartyAdapters/moloco/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - MyTarget"
+        run: |
+          cd ThirdPartyAdapters/mytarget/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - Pangle"
+        run: |
+          cd ThirdPartyAdapters/pangle/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - PubMatic"
+        run: |
+          cd ThirdPartyAdapters/pubmatic/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - Unity"
+        run: |
+          cd ThirdPartyAdapters/unity/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - Verve"
+        run: |
+          cd ThirdPartyAdapters/verve/
           gradle wrapper
           ./gradlew test --scan
