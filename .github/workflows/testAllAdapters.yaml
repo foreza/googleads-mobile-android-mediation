@@ -25,6 +25,7 @@ jobs:
           cd ThirdPartyAdapters/liftoffmonetize/
           gradle wrapper
           ./gradlew test --scan
+
       - name: "Unit Tests - Example - Applovin"
         run: |
 #          Assumption - the agent is still in the above dir
