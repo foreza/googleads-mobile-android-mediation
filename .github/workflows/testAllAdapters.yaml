@@ -28,6 +28,6 @@ jobs:
       - name: "Unit Tests - Example - Applovin"
         run: |
 #          Assumption - the agent is still in the above dir
-          cd ../ThirdPartyAdapters/liftoffmonetize/
+          cd ThirdPartyAdapters/applovin/
           gradle wrapper
           ./gradlew test --scan
