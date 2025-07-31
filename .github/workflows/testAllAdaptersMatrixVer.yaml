@@ -1,4 +1,4 @@
-name: Test All 3rd Party Mediation Adapters
+name: Matrix - Test All 3rd Party Mediation Adapters
 
 on:
   # Goal 1: Allows you to trigger this workflow manually from the Actions tab
