@@ -3,11 +3,11 @@ name: Test All 3rd Party Mediation Adapters
 # Step 1: Run this manually.
 # TODO: Do we want to run this on a cadence?
 on: workflow_dispatch
+
 jobs:
   android:
     runs-on: macos-latest
-#    if: github.event_name == 'pull_request'
-    timeout-minutes: 5
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
         with:
@@ -19,16 +19,8 @@ jobs:
       - name: "Install Gradle"
         run: |
           brew install gradle
-      # TODO - make the tests composable so I don't need to do this
-      - name: "Unit Tests - Example - liftoffmonetize"
+      - name: "Unit Tests"
         run: |
-          cd ThirdPartyAdapters/liftoffmonetize/
-          gradle wrapper
-          ./gradlew test --scan
-
-      - name: "Unit Tests - Example - Applovin"
-        run: |
-#          Assumption - the agent is still in the above dir
           cd ThirdPartyAdapters/applovin/
           gradle wrapper
           ./gradlew test --scan
