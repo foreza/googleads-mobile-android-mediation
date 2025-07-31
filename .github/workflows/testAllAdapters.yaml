@@ -19,8 +19,13 @@ jobs:
       - name: "Install Gradle"
         run: |
           brew install gradle
-      - name: "Unit Tests"
+      - name: "Unit Tests - AppLovin"
         run: |
           cd ThirdPartyAdapters/applovin/
+          gradle wrapper
+          ./gradlew test --scan
+      - name: "Unit Tests - LiftOff"
+        run: |
+          cd ThirdPartyAdapters/liftoffmonetize/
           gradle wrapper
           ./gradlew test --scan
