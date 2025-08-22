@@ -1,5 +1,12 @@
 ## InMobi Android Mediation Adapter Changelog
 
+#### Version 10.8.7.0
+- Verified compatibility with InMobi Kotlin SDK version 10.8.7.
+
+Built and tested with:
+- Google Mobile Ads SDK version 24.5.0.
+- InMobi Kotlin SDK version 10.8.7.
+
 #### Version 10.8.3.1
 - Removed account ID and placement ID validation checks on bidding requests.
 - For banner bidding requests, removes a validation check that enforces the banner size to map to a standard InMobi ad size. If InMobi bidder bids on a non-standard size, the adapter now allows that request to render.
