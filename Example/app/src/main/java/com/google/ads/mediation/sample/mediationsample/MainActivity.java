@@ -16,7 +16,9 @@
 
 package com.google.ads.mediation.sample.mediationsample;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,8 +29,15 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bytedance.sdk.openadsdk.api.PAGConstant;
+import com.facebook.ads.AudienceNetworkAds;
+import com.fyber.inneractive.sdk.external.InneractiveAdManager;
+import com.google.ads.mediation.pangle.PangleMediationAdapter;
 import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdInspectorError;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
@@ -36,6 +45,8 @@ import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnAdInspectorClosedListener;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback;
@@ -49,6 +60,8 @@ import com.google.android.gms.ads.rewarded.RewardedAd;
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
+import com.vungle.ads.VunglePrivacySettings;
+
 import java.util.Locale;
 
 /**
@@ -56,7 +69,7 @@ import java.util.Locale;
  */
 public class MainActivity extends AppCompatActivity {
 
-  private final String LOG_TAG = "MediationExample";
+  private final String LOG_TAG = "MediationExample-TheTurbo";
 
   // The banner ad view.
   private AdView adView;
@@ -92,7 +105,29 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    // App Open ads.
+    // We have the consent.
+    VunglePrivacySettings.setCCPAStatus(true);
+      VunglePrivacySettings.setCOPPAStatus(false);
+    InneractiveAdManager.setUSPrivacyString("1YNN");
+      PangleMediationAdapter.setPAConsent(PAGConstant.PAGPAConsentType.PAG_PA_CONSENT_TYPE_CONSENT);
+
+
+//      String IABTCF_TC_STRING_KEY = "IABTCF_TCString";
+//      String IABTCF_VENDOR_CONSENTS_KEY = "IABTCF_VendorConsents";
+//      String IABTCF_PURPOSE_CONSENTS_KEY = "IABTCF_PurposeConsents";
+//      String IAB_CCPA_KEY = "IABUSPrivacy_String";
+//
+//      setSharedPreferencesKeyForKeyValue(IABTCF_TC_STRING_KEY,
+//              "CPKZ42oPKZ5YtADABCENBlCgAP_AAAAAAAAAAwwAQAwgDDABADCAAA");
+//      setSharedPreferencesKeyForKeyValue(IABTCF_VENDOR_CONSENTS_KEY,
+//              "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001");
+//      setSharedPreferencesKeyForKeyValue(IABTCF_PURPOSE_CONSENTS_KEY,
+//              "1111111111");
+//      setSharedPreferencesKeyForKeyValue(IAB_CCPA_KEY,
+//              "1YNN");
+
+
+      // App Open ads.
     loadAppOpenButton = findViewById(R.id.app_open_load_button);
     loadAppOpenButton.setOnClickListener(new OnClickListener() {
       @Override
@@ -120,6 +155,12 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onAdLoaded() {
             Log.d(LOG_TAG, "Banner Ad loaded: " + adView.getResponseInfo());
+              MobileAds.openAdInspector(view.getContext(), new OnAdInspectorClosedListener() {
+                  @Override
+                  public void onAdInspectorClosed(@Nullable AdInspectorError adInspectorError) {
+                      //
+                  }
+              });
           }
 
           @Override
@@ -128,6 +169,13 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,
                 "Failed to load banner: " + loadAdError,
                 Toast.LENGTH_SHORT).show();
+
+              MobileAds.openAdInspector(view.getContext(), new OnAdInspectorClosedListener() {
+                  @Override
+                  public void onAdInspectorClosed(@Nullable AdInspectorError adInspectorError) {
+                      //
+                  }
+              });
           }
         });
         adView.loadAd(new AdRequest.Builder().build());
@@ -310,6 +358,15 @@ public class MainActivity extends AppCompatActivity {
     });
   }
 
+
+
+    // EXAMPLE ONLY: Utility function to set SharedPreferences
+    // Your CMP SDK should be taking care of this - the LiveRamp SDK reads these values.
+    private void setSharedPreferencesKeyForKeyValue(String key, String value) {
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        editor.putString(key, value);
+        editor.apply();
+    }
   /**
    * Gets the app open ad unit ID to test.
    */

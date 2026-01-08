@@ -31,4 +31,21 @@ dependencies {
     if (project.hasProperty('includeSnippets') && includeSnippets.toBoolean()) {
         implementation project(':snippets')
     }
+
+
+    implementation 'com.google.android.gms:play-services-ads-identifier:+'
+
+    // example bidder
+    implementation("com.google.ads.mediation:vungle:7.6.2.0")
+    implementation("com.google.ads.mediation:line:2.9.20251028.0")
+    implementation("com.google.ads.mediation:fyber:8.4.2.0")
+    implementation("com.google.ads.mediation:facebook:6.21.0.0")
+    implementation("com.google.ads.mediation:pangle:7.6.0.4.1")
+
+//    implementation("com.applovin.mediation:bytedance-adapter:7.8.0.8.0")
+
+
+
+
+
 }

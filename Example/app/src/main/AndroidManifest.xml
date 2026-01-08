@@ -13,20 +13,31 @@
       android:theme="@style/AppTheme"
       android:networkSecurityConfig="@xml/network_security_config">
 
-    <meta-data
-        android:name="com.google.android.gms.ads.APPLICATION_ID"
-        android:value="ca-app-pub-3940256099942544~2964678116" />
+<!--    <meta-data-->
+<!--        android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+<!--        android:value="ca-app-pub-3940256099942544~2964678116" />-->
 
-    <activity
-        android:name=".MainActivity"
-        android:label="@string/app_name"
-        android:exported="true">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+<!--      DT-Exchanbge ca-app-pub-3212738706492790~6391175734-->
 
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-  </application>
+<!--      <meta-data-->
+<!--          android:name="com.google.android.gms.ads.APPLICATION_ID"-->
+<!--          android:value="ca-app-pub-7319269804560504~2797506967" />-->
+<!--meta no worky-->
+<!--            Vungle -->
+            <meta-data
+                android:name="com.google.android.gms.ads.APPLICATION_ID"
+                android:value="ca-app-pub-7319269804560504~2341716012" />
 
-</manifest>
+              <activity
+                  android:name=".MainActivity"
+                  android:label="@string/app_name"
+                  android:exported="true">
+                <intent-filter>
+                  <action android:name="android.intent.action.MAIN" />
+
+                  <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+              </activity>
+            </application>
+
+          </manifest>

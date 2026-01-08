@@ -5,7 +5,13 @@
   <string name="customevent_app_open_ad_unit_id" translatable="false">
     ca-app-pub-3940256099942544/8980988583</string>
   <string name="customevent_banner_ad_unit_id" translatable="false">
-    ca-app-pub-3940256099942544/2336528657</string>
+<!--    ca-app-pub-3940256099942544/2336528657</string>-->
+<!--    TODO: Can we have these rotate for ease of testing purposes?-->
+<!--    https://docs.google.com/spreadsheets/d/1LUB6bQHOp2CFLiVd3Mb4nWE8nWxodDMYbaVoUg2S6WI/htmlview#gid=1492788438    <string name="customevent_banner_ad_unit_id" translatable="false">-->
+<!--    DT-exchange -->
+<!--      ca-app-pub-7319269804560504/7557855920</string>-->
+<!--    Meta is bidding only.. but no worky-->
+      <!--    Vungle-->ca-app-pub-7319269804560504/5534662049</string>
   <string name="customevent_interstitial_ad_unit_id" translatable="false">
     ca-app-pub-3940256099942544/4013406551</string>
   <string name="customevent_rewarded_ad_unit_id" translatable="false">
