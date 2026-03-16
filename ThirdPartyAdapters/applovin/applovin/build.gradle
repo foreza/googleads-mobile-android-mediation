@@ -9,7 +9,7 @@ ext {
     // String property to store the proper name of the mediation network adapter.
     adapterName = "AppLovin"
     // String property to store version name.
-    stringVersion = "13.6.0.0"
+    stringVersion = "13.6.1.0"
     // String property to store group id.
     stringGroupId = "com.google.ads.mediation"
 }
@@ -24,7 +24,7 @@ android {
             minSdkVersion 23
         }
         targetSdk 33
-        versionCode 13060000
+        versionCode 13060100
         versionName stringVersion
         buildConfigField("String", "ADAPTER_VERSION", "\"${stringVersion}\"")
     }
@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.applovin:applovin-sdk:13.6.0'
+    implementation 'com.applovin:applovin-sdk:13.6.1'
     implementation 'androidx.annotation:annotation:1.5.0'
     // Check for a 'useNextGenGma' flag passed via command line
     if (project.hasProperty('useNextGenGma')) {
