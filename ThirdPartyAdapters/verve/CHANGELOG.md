@@ -1,7 +1,9 @@
 ## Verve Android Mediation Adapter Changelog
 
-#### Version 3.7.1.1 (In progress)
+#### Next version
+- Added property to build the adapter with NextGen GMA SDK dependency.
 
+#### Version 3.7.1.1 (In progress)
 - Removed banner size check from the adapter to resolve signal collection
   failures.
 
