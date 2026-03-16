@@ -1,9 +1,14 @@
 ## AppLovin Android Mediation Adapter Changelog
 
 #### Next Version
-- Added property to build the adapter with NextGen GMA SDK dependency.
+- Added property to build the adapter with GMA Next-Gen SDK dependency.
 
-#### Version 13.6.0.0 (In progress)
+#### Version 13.6.0.0
+- Verified compatibility with AppLovin SDK 13.6.0.
+
+Built and tested with:
+- Google Mobile Ads SDK version 25.0.0.
+- AppLovin SDK version 13.6.0.
 
 #### Version 13.5.1.0
 - Verified compatibility with AppLovin SDK 13.5.1.
