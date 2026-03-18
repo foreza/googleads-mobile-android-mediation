@@ -3,7 +3,12 @@
 #### Next Version
 - Added property to build the adapter with NextGen GMA SDK dependency.
 
-#### Version 4.17.0.0 (In progress)
+#### Version 4.17.0.0
+- Verified compatibility with Unity Ads SDK 4.17.0.
+
+Built and tested with:
+- Google Mobile Ads SDK version 25.0.0.
+- Unity Ads SDK version 4.17.0.
 
 #### Version 4.16.6.0
 - Added support for forwarding the tagForUnderAgeOfConsent Google Mobile Ads SDK parameter to the Unity Ads SDK.
