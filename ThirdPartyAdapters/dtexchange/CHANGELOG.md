@@ -1,7 +1,7 @@
 ## DT Exchange Android Mediation Adapter Changelog
 
 #### Next Version
-- Added property to build the adapter with NextGen GMA SDK dependency.
+- Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 8.4.3.0
 - Added updated API calls for banner ad implementation.

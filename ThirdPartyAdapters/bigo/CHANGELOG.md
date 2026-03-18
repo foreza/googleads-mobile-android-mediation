@@ -1,7 +1,7 @@
 ## Bigo Android Mediation Adapter Changelog
 
 #### Next Version
-- Added property to build the adapter with NextGen GMA SDK dependency.
+- Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 5.7.1.0
 - Verified compatibility with Bigo Ads SDK 5.7.1.

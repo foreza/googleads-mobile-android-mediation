@@ -1,7 +1,7 @@
 ## IronSource Android Mediation Adapter Changelog
 
 #### Next Version
-- Added property to build the adapter with NextGen GMA SDK dependency.
+- Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 9.3.0.1
 - Added support for forwarding the `tagForUnderAgeOfConsent` Google Mobile Ads

@@ -1,7 +1,7 @@
 ## Unity Ads Android Mediation Adapter Changelog
 
 #### Next Version
-- Added property to build the adapter with NextGen GMA SDK dependency.
+- Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 4.17.0.0
 - Verified compatibility with Unity Ads SDK 4.17.0.

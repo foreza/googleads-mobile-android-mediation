@@ -1,7 +1,7 @@
 ## maio Android Mediation Adapter Changelog
 
 #### Next Version
-- Added property to build the adapter with NextGen GMA SDK dependency.
+- Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 2.0.8.1
 - Added Banner ad format support

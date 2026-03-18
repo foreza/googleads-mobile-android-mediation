@@ -1,7 +1,7 @@
 ## LINE Android Mediation Adapter Changelog
 
 #### Next Version
-- Added property to build the adapter with NextGen GMA SDK dependency.
+- Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 3.0.1.1 (In progress)
 - Native ad impressions are now overwritten by FiveAd SDK when using Google

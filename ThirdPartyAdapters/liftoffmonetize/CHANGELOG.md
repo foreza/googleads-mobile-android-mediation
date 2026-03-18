@@ -1,7 +1,7 @@
 ## Liftoff Monetize Android Mediation Adapter Changelog
 
 #### Next Version
-- Added property to build the adapter with NextGen GMA SDK dependency.
+- Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 7.7.1.0
 - Verified compatibility with Vungle SDK 7.7.1.
