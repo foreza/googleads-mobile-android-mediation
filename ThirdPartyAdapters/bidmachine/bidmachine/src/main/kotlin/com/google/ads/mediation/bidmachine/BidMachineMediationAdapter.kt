@@ -53,7 +53,10 @@ import io.bidmachine.rewarded.RewardedAd
  * BidMachine Adapter for GMA SDK used to initialize and load ads from the BidMachine SDK. This
  * class should not be used directly by publishers.
  */
-class BidMachineMediationAdapter : RtbAdapter() {
+class BidMachineMediationAdapter
+@JvmOverloads
+constructor(private val mediationUtils: MediationUtilsWrapper = MediationUtilsWrapper()) :
+  RtbAdapter() {
 
   lateinit var bannerAd: BidMachineBannerAd
   private lateinit var interstitialAd: BidMachineInterstitialAd
@@ -110,15 +113,14 @@ class BidMachineMediationAdapter : RtbAdapter() {
     initializationCompleteCallback: InitializationCompleteCallback,
     mediationConfigurations: List<MediationConfiguration>,
   ) {
-    val sourceIds =
-      mediationConfigurations.mapNotNull {
-        val sourceId = it.serverParameters.getString(SOURCE_ID_KEY)
-        if (sourceId.isNullOrEmpty()) {
-          null
-        } else {
-          sourceId
-        }
+    val sourceIds = mediationConfigurations.mapNotNull {
+      val sourceId = it.serverParameters.getString(SOURCE_ID_KEY)
+      if (sourceId.isNullOrEmpty()) {
+        null
+      } else {
+        sourceId
       }
+    }
     if (sourceIds.isEmpty()) {
       initializationCompleteCallback.onInitializationFailed(ERROR_MSG_MISSING_SOURCE_ID)
       return
@@ -177,7 +179,12 @@ class BidMachineMediationAdapter : RtbAdapter() {
     mediationBannerAdConfiguration: MediationBannerAdConfiguration,
     callback: MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback>,
   ) {
-    BidMachineBannerAd.newInstance(mediationBannerAdConfiguration, callback, isRtb = false)
+    BidMachineBannerAd.newInstance(
+        mediationBannerAdConfiguration,
+        callback,
+        isRtb = false,
+        mediationUtils,
+      )
       .onSuccess {
         bannerAd = it
         val bannerView = BannerView(mediationBannerAdConfiguration.context)
@@ -225,7 +232,12 @@ class BidMachineMediationAdapter : RtbAdapter() {
     mediationBannerAdConfiguration: MediationBannerAdConfiguration,
     callback: MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback>,
   ) {
-    BidMachineBannerAd.newInstance(mediationBannerAdConfiguration, callback, isRtb = true)
+    BidMachineBannerAd.newInstance(
+        mediationBannerAdConfiguration,
+        callback,
+        isRtb = true,
+        mediationUtils,
+      )
       .onSuccess {
         bannerAd = it
         val bannerView = BannerView(mediationBannerAdConfiguration.context)
@@ -277,7 +289,8 @@ class BidMachineMediationAdapter : RtbAdapter() {
     return when (adFormat) {
       AdFormat.BANNER -> {
         adSize ?: return null
-        val bannerAdSize = mapAdSizeToBidMachineBannerAdSize(context, adSize, true) ?: return null
+        val bannerAdSize =
+          mapAdSizeToBidMachineBannerAdSize(context, adSize, true, mediationUtils) ?: return null
         AdPlacementConfig.bannerBuilder(bannerAdSize)
       }
       AdFormat.INTERSTITIAL -> AdPlacementConfig.interstitialBuilder()

@@ -66,6 +66,7 @@ class BidMachineBannerAdTest {
     }
   private val mockBannerRequest = mock<BannerRequest> { on { isExpired } doReturn false }
   private val mockBannerView = mock<BannerView>()
+  private val mediationUtils = mock<MediationUtilsWrapper>()
 
   @Before
   fun setUp() {
@@ -78,9 +79,15 @@ class BidMachineBannerAdTest {
         serverParameters = serverParams,
         watermark = TEST_WATERMARK,
       )
-    BidMachineBannerAd.newInstance(adConfiguration, mockAdLoadCallback, isRtb = false).onSuccess {
-      bidMachineBannerAd = it
-    }
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize.BANNER), any())) doReturn
+      AdSize.BANNER
+    BidMachineBannerAd.newInstance(
+        adConfiguration,
+        mockAdLoadCallback,
+        isRtb = false,
+        mediationUtils,
+      )
+      .onSuccess { bidMachineBannerAd = it }
   }
 
   @Test

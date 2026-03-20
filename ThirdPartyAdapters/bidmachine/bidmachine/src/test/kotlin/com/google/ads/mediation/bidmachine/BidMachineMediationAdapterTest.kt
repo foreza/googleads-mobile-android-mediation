@@ -64,11 +64,13 @@ import org.mockito.Mockito.mockStatic
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argThat
 import org.mockito.kotlin.argumentCaptor
+import org.mockito.kotlin.doReturn
 import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.never
 import org.mockito.kotlin.times
 import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 @RunWith(AndroidJUnit4::class)
 class BidMachineMediationAdapterTest {
@@ -87,10 +89,11 @@ class BidMachineMediationAdapterTest {
   private val mockRewardedAdLoadCallback:
     MediationAdLoadCallback<MediationRewardedAd, MediationRewardedAdCallback> =
     mock()
+  private val mediationUtils = mock<MediationUtilsWrapper>()
 
   @Before
   fun setUp() {
-    adapter = BidMachineMediationAdapter()
+    adapter = BidMachineMediationAdapter(mediationUtils = mediationUtils)
     mockBidMachine = mockStatic(BidMachine::class.java)
   }
 
@@ -347,6 +350,8 @@ class BidMachineMediationAdapterTest {
   fun loadWaterfallBannerAd_withRequestedSizeCloseToRegularBanner_bannerAdObjectIsInitializedWithRegularBannerSize() {
     val bannerAdConfiguration =
       createMediationBannerAdConfiguration(context, adSize = AdSize(330, 60))
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize(330, 60)), any())) doReturn
+      AdSize.BANNER
 
     adapter.loadBannerAd(bannerAdConfiguration, mockBannerAdLoadCallback)
 
@@ -362,6 +367,8 @@ class BidMachineMediationAdapterTest {
   fun loadWaterfallBannerAd_withRequestedSizeCloseToMediumRectangle_bannerAdObjectIsInitializedWithMediumRectangleSize() {
     val bannerAdConfiguration =
       createMediationBannerAdConfiguration(context, adSize = AdSize(310, 260))
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize(310, 260)), any())) doReturn
+      AdSize.MEDIUM_RECTANGLE
 
     adapter.loadBannerAd(bannerAdConfiguration, mockBannerAdLoadCallback)
 
@@ -377,6 +384,8 @@ class BidMachineMediationAdapterTest {
   fun loadWaterfallBannerAd_withRequestedSizeCloseToLeaderboard_bannerAdObjectIsInitializedWithLeaderboardSize() {
     val bannerAdConfiguration =
       createMediationBannerAdConfiguration(context, adSize = AdSize(740, 100))
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize(740, 100)), any())) doReturn
+      AdSize.LEADERBOARD
 
     adapter.loadBannerAd(bannerAdConfiguration, mockBannerAdLoadCallback)
 
@@ -394,6 +403,7 @@ class BidMachineMediationAdapterTest {
     // sizes.
     val bannerAdConfiguration =
       createMediationBannerAdConfiguration(context, adSize = AdSize(320, 100))
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize(330, 60)), any())) doReturn null
     val expectedAdError =
       AdError(ERROR_CODE_INVALID_AD_SIZE, ERROR_MSG_INVALID_AD_SIZE, ADAPTER_ERROR_DOMAIN)
 
@@ -406,6 +416,8 @@ class BidMachineMediationAdapterTest {
   fun loadRtbBannerAd_withRequestedSizeCloseToRegularBanner_bannerAdObjectIsInitializedWithRegularBannerSize() {
     val bannerAdConfiguration =
       createMediationBannerAdConfiguration(context, adSize = AdSize(330, 60))
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize(330, 60)), any())) doReturn
+      AdSize.BANNER
 
     adapter.loadRtbBannerAd(bannerAdConfiguration, mockBannerAdLoadCallback)
 
@@ -421,6 +433,8 @@ class BidMachineMediationAdapterTest {
   fun loadRtbBannerAd_withRequestedSizeCloseToMediumRectangle_bannerAdObjectIsInitializedWithMediumRectangleSize() {
     val bannerAdConfiguration =
       createMediationBannerAdConfiguration(context, adSize = AdSize(310, 260))
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize(310, 260)), any())) doReturn
+      AdSize.MEDIUM_RECTANGLE
 
     adapter.loadRtbBannerAd(bannerAdConfiguration, mockBannerAdLoadCallback)
 
@@ -436,6 +450,8 @@ class BidMachineMediationAdapterTest {
   fun loadRtbBannerAd_withRequestedSizeCloseToLeaderboard_bannerAdObjectIsInitializedWithLeaderboardSize() {
     val bannerAdConfiguration =
       createMediationBannerAdConfiguration(context, adSize = AdSize(740, 100))
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize(740, 100)), any())) doReturn
+      AdSize.LEADERBOARD
 
     adapter.loadRtbBannerAd(bannerAdConfiguration, mockBannerAdLoadCallback)
 
@@ -453,6 +469,7 @@ class BidMachineMediationAdapterTest {
     // sizes.
     val bannerAdConfiguration =
       createMediationBannerAdConfiguration(context, adSize = AdSize(320, 100))
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize(330, 60)), any())) doReturn null
 
     adapter.loadRtbBannerAd(bannerAdConfiguration, mockBannerAdLoadCallback)
 

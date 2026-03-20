@@ -27,7 +27,6 @@ import com.google.ads.mediation.bidmachine.BidMachineMediationAdapter.Companion.
 import com.google.ads.mediation.bidmachine.BidMachineMediationAdapter.Companion.WATERMARK_KEY
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.MediationUtils
 import com.google.android.gms.ads.mediation.MediationAdLoadCallback
 import com.google.android.gms.ads.mediation.MediationBannerAd
 import com.google.android.gms.ads.mediation.MediationBannerAdCallback
@@ -137,11 +136,12 @@ internal constructor(
       context: Context,
       adSize: AdSize,
       isRtb: Boolean,
+      mediationUtils: MediationUtilsWrapper,
     ): BannerAdSize? {
       // List of banner ad sizes supported by BidMachine.
       val supportedSizes = listOf(AdSize.BANNER, AdSize.MEDIUM_RECTANGLE, AdSize.LEADERBOARD)
       // Find the supported size that is closest to the publisher-requested size.
-      val closestSupportedSize = MediationUtils.findClosestSize(context, adSize, supportedSizes)
+      val closestSupportedSize = mediationUtils.findClosestSize(context, adSize, supportedSizes)
       return when (closestSupportedSize) {
         AdSize.BANNER -> BannerAdSize.Banner
         AdSize.MEDIUM_RECTANGLE -> BannerAdSize.MediumRectangle
@@ -166,6 +166,7 @@ internal constructor(
         MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback>,
       // Indicates whether it is a Real-time Bidding (RTB) load request or a Waterfall load request.
       isRtb: Boolean,
+      mediationUtils: MediationUtilsWrapper,
     ): Result<BidMachineBannerAd> {
       val adSize = mediationBannerAdConfiguration.adSize
       val bidResponse = mediationBannerAdConfiguration.bidResponse
@@ -173,7 +174,12 @@ internal constructor(
       val placementId = mediationBannerAdConfiguration.serverParameters.getString(PLACEMENT_ID_KEY)
 
       val bannerAdSize =
-        mapAdSizeToBidMachineBannerAdSize(mediationBannerAdConfiguration.context, adSize, isRtb)
+        mapAdSizeToBidMachineBannerAdSize(
+          mediationBannerAdConfiguration.context,
+          adSize,
+          isRtb,
+          mediationUtils,
+        )
       if (bannerAdSize == null) {
         val adError =
           AdError(ERROR_CODE_INVALID_AD_SIZE, ERROR_MSG_INVALID_AD_SIZE, ADAPTER_ERROR_DOMAIN)
