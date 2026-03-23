@@ -1,6 +1,6 @@
 ## Moloco Android Mediation Adapter Changelog
 
-#### Next Version
+#### Version 4.7.0.0 (In progress)
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 4.6.0.0
