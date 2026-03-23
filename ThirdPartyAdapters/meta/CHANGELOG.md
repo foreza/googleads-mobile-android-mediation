@@ -1,6 +1,6 @@
 ## Meta Audience Network Android Mediation Adapter Changelog
 
-#### Next Version
+#### Version 6.21.0.2 (In progress)
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 6.21.0.1
