@@ -25,6 +25,7 @@ on:
 
 jobs:
   android:
+    name: TestBidMachineAdapter
     runs-on: macos-latest
     if: github.event_name == 'pull_request'
     timeout-minutes: 30

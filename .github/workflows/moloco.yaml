@@ -25,6 +25,7 @@ on:
 
 jobs:
   android:
+    name: TestMolocoAdapter
     runs-on: macos-latest
     if: github.event_name == 'pull_request'
     timeout-minutes: 30
