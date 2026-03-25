@@ -29,7 +29,6 @@ import com.google.ads.mediation.line.LineExtras.Companion.KEY_ENABLE_AD_SOUND
 import com.google.ads.mediation.line.LineMediationAdapter.Companion.SDK_ERROR_DOMAIN
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.MediationUtils
 import com.google.android.gms.ads.mediation.MediationAdLoadCallback
 import com.google.android.gms.ads.mediation.MediationBannerAd
 import com.google.android.gms.ads.mediation.MediationBannerAdCallback
@@ -49,6 +48,7 @@ private constructor(
     MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback>,
   private val adSize: AdSize,
   private val networkExtras: Bundle?,
+  private val mediationUtils: MediationUtilsWrapper,
 ) : MediationBannerAd, FiveAdLoadListener, FiveAdCustomLayoutEventListener {
 
   private var mediationBannerAdCallback: MediationBannerAdCallback? = null
@@ -120,7 +120,7 @@ private constructor(
         TAG,
         "Received Banner Ad dimensions: ${returnedAdSize.width} x ${returnedAdSize.height}",
       )
-      val closestSize = MediationUtils.findClosestSize(it.context, adSize, listOf(returnedAdSize))
+      val closestSize = mediationUtils.findClosestSize(it.context, adSize, listOf(returnedAdSize))
       if (closestSize == null) {
         val logMessage =
           ERROR_MSG_MISMATCH_AD_SIZE.format(
@@ -213,7 +213,9 @@ private constructor(
 
     fun newInstance(
       mediationBannerAdConfiguration: MediationBannerAdConfiguration,
-      mediationAdLoadCallback: MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback>,
+      mediationAdLoadCallback:
+        MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback>,
+      mediationUtils: MediationUtilsWrapper,
     ): Result<LineBannerAd> {
       val serverParameters = mediationBannerAdConfiguration.serverParameters
       val adSize = mediationBannerAdConfiguration.adSize
@@ -243,6 +245,7 @@ private constructor(
           mediationAdLoadCallback,
           adSize,
           mediationBannerAdConfiguration.mediationExtras,
+          mediationUtils,
         )
       )
     }

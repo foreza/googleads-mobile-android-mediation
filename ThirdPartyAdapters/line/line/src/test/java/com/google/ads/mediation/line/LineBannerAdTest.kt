@@ -22,6 +22,7 @@ import org.junit.runner.RunWith
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
@@ -50,6 +51,7 @@ class LineBannerAdTest {
   private val mediationAdLoadCallback:
     MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback> =
     mock()
+  private val mediationUtils: MediationUtilsWrapper = mock()
 
   @Before
   fun setup() {
@@ -57,9 +59,10 @@ class LineBannerAdTest {
 
     // Properly initialize lineBannerAd
     mediationAdConfiguration = createMediationBannerAdConfiguration()
-    LineBannerAd.newInstance(mediationAdConfiguration, mediationAdLoadCallback).onSuccess {
-      lineBannerAd = it
-    }
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize.BANNER), any())) doReturn
+      AdSize.BANNER
+    LineBannerAd.newInstance(mediationAdConfiguration, mediationAdLoadCallback, mediationUtils)
+      .onSuccess { lineBannerAd = it }
     whenever(mediationAdLoadCallback.onSuccess(lineBannerAd)) doReturn mockMediationAdCallback
   }
 
@@ -81,6 +84,7 @@ class LineBannerAdTest {
         on { logicalHeight } doReturn AdSize.LARGE_BANNER.height
         on { context } doReturn context
       }
+    whenever(mediationUtils.findClosestSize(eq(context), eq(AdSize.BANNER), any())) doReturn null
 
     lineBannerAd.onFiveAdLoad(differentBannerAd)
 

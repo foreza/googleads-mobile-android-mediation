@@ -46,7 +46,10 @@ import com.google.android.gms.ads.mediation.rtb.SignalCallbacks
  * Line Adapter for GMA SDK used to initialize and load ads from the Line SDK. This class should not
  * be used directly by publishers.
  */
-class LineMediationAdapter : RtbAdapter() {
+class LineMediationAdapter
+@JvmOverloads
+constructor(private val mediationUtils: MediationUtilsWrapper = MediationUtilsWrapper()) :
+  RtbAdapter() {
 
   private lateinit var bannerAd: LineBannerAd
   private lateinit var interstitialAd: LineInterstitialAd
@@ -101,15 +104,14 @@ class LineMediationAdapter : RtbAdapter() {
     initializationCompleteCallback: InitializationCompleteCallback,
     mediationConfigurations: List<MediationConfiguration>,
   ) {
-    val appIds =
-      mediationConfigurations.mapNotNull {
-        val appId = it.serverParameters.getString(KEY_APP_ID)
-        if (appId.isNullOrEmpty()) {
-          null
-        } else {
-          appId
-        }
+    val appIds = mediationConfigurations.mapNotNull {
+      val appId = it.serverParameters.getString(KEY_APP_ID)
+      if (appId.isNullOrEmpty()) {
+        null
+      } else {
+        appId
       }
+    }
 
     if (appIds.isEmpty()) {
       initializationCompleteCallback.onInitializationFailed(ERROR_MSG_MISSING_APP_ID)
@@ -182,7 +184,7 @@ class LineMediationAdapter : RtbAdapter() {
     mediationBannerAdConfiguration: MediationBannerAdConfiguration,
     callback: MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback>,
   ) {
-    LineBannerAd.newInstance(mediationBannerAdConfiguration, callback).onSuccess {
+    LineBannerAd.newInstance(mediationBannerAdConfiguration, callback, mediationUtils).onSuccess {
       bannerAd = it
       bannerAd.loadAd(mediationBannerAdConfiguration.context)
     }
@@ -222,7 +224,7 @@ class LineMediationAdapter : RtbAdapter() {
     adConfiguration: MediationBannerAdConfiguration,
     callback: MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback>,
   ) {
-    LineBannerAd.newInstance(adConfiguration, callback).onSuccess {
+    LineBannerAd.newInstance(adConfiguration, callback, mediationUtils).onSuccess {
       bannerAd = it
       bannerAd.loadRtbAd(adConfiguration.context)
     }
