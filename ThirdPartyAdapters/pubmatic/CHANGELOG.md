@@ -2,6 +2,7 @@
 
 #### Next Version
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
+- Fixed a bug where mediation utils object wasn't being initialized.
 
 #### Version 5.0.0.0
 - Verified compatibility with Pubmatic SDK 5.0.0.

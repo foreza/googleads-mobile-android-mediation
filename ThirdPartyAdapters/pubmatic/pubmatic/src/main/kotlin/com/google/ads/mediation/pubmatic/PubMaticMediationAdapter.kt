@@ -63,7 +63,7 @@ class PubMaticMediationAdapter
 constructor(
   private val pubMaticSignalGenerator: PubMaticSignalGenerator = PubMaticSignalGeneratorImpl(),
   private val pubMaticAdFactory: PubMaticAdFactory = PubMaticAdFactoryImpl(),
-  private val mediationUtils: MediationUtilsWrapper,
+  private val mediationUtils: MediationUtilsWrapper = MediationUtilsWrapper(),
 ) : RtbAdapter() {
 
   private lateinit var bannerAd: PubMaticBannerAd
