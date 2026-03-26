@@ -67,10 +67,11 @@ class IMobileMediationAdapterTest {
     MediationAdLoadCallback<NativeAdMapper, MediationNativeAdCallback> =
     mock()
   private val iMobileSdkWrapper: IMobileSdkWrapper = mock()
+  private val mediationUtils: MediationUtilsWrapper = mock()
 
   @Before
   fun setUp() {
-    adapter = IMobileMediationAdapter(iMobileSdkWrapper)
+    adapter = IMobileMediationAdapter(iMobileSdkWrapper, mediationUtils)
   }
 
   @Test
@@ -156,6 +157,8 @@ class IMobileMediationAdapterTest {
   fun loadBannerAd_loadsIMobileBannerAd() {
     whenever(mockBannerAdConfiguration.context) doReturn activity
     whenever(mockBannerAdConfiguration.adSize) doReturn AdSize.BANNER
+    whenever(mediationUtils.findClosestSize(eq(activity), eq(AdSize.BANNER), any())) doReturn
+      AdSize.BANNER
     val serverParams =
       bundleOf(KEY_PUBLISHER_ID to PUBLISHER_ID, KEY_MEDIA_ID to MEDIA_ID, KEY_SPOT_ID to SPOT_ID)
     whenever(mockBannerAdConfiguration.serverParameters) doReturn serverParams

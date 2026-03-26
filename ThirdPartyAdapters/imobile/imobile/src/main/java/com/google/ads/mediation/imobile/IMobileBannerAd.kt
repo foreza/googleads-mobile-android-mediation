@@ -22,7 +22,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.MediationUtils
 import com.google.android.gms.ads.mediation.MediationAdLoadCallback
 import com.google.android.gms.ads.mediation.MediationBannerAd
 import com.google.android.gms.ads.mediation.MediationBannerAdCallback
@@ -41,7 +40,11 @@ class IMobileBannerAd(
 
   private var bannerAdCallback: MediationBannerAdCallback? = null
 
-  fun loadAd(adConfig: MediationBannerAdConfiguration, iMobileSdkWrapper: IMobileSdkWrapper) {
+  fun loadAd(
+    adConfig: MediationBannerAdConfiguration,
+    iMobileSdkWrapper: IMobileSdkWrapper,
+    mediationUtils: MediationUtilsWrapper,
+  ) {
     // Validate Context.
     if (adConfig.context !is Activity) {
       val error =
@@ -59,11 +62,11 @@ class IMobileBannerAd(
     // Validate AdSize.
     val adSize = adConfig.adSize
     val iMobileAdSizes = AdMobMediationSupportAdSize.entries.toTypedArray()
-    val supportedSizes = ArrayList<AdSize?>()
+    val supportedSizes = ArrayList<AdSize>()
     for (adSize in iMobileAdSizes) {
       supportedSizes.add(AdSize(adSize.width, adSize.height))
     }
-    val supportedAdSize = MediationUtils.findClosestSize(adConfig.context, adSize, supportedSizes)
+    val supportedAdSize = mediationUtils.findClosestSize(adConfig.context, adSize, supportedSizes)
     if (supportedAdSize == null) {
       val error =
         AdError(

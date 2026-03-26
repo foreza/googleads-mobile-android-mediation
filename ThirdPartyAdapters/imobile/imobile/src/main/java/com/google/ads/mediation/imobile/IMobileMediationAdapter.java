@@ -93,13 +93,18 @@ public class IMobileMediationAdapter extends Adapter {
 
   private final IMobileSdkWrapper iMobileSdkWrapper;
 
+  private final MediationUtilsWrapper mediationUtils;
+
   IMobileMediationAdapter() {
     iMobileSdkWrapper = new IMobileSdkWrapper();
+    mediationUtils = new MediationUtilsWrapper();
   }
 
   @VisibleForTesting
-  IMobileMediationAdapter(IMobileSdkWrapper iMobileSdkWrapper) {
+  IMobileMediationAdapter(
+      IMobileSdkWrapper iMobileSdkWrapper, MediationUtilsWrapper mediationUtilsWrapper) {
     this.iMobileSdkWrapper = iMobileSdkWrapper;
+    mediationUtils = mediationUtilsWrapper;
   }
 
   // region - Adapter interface
@@ -154,7 +159,7 @@ public class IMobileMediationAdapter extends Adapter {
       @NonNull MediationBannerAdConfiguration mediationBannerAdConfiguration,
       @NonNull MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback> callback) {
     IMobileBannerAd bannerAd = new IMobileBannerAd(callback);
-    bannerAd.loadAd(mediationBannerAdConfiguration, iMobileSdkWrapper);
+    bannerAd.loadAd(mediationBannerAdConfiguration, iMobileSdkWrapper, mediationUtils);
   }
 
   @Override
