@@ -7,6 +7,7 @@ import com.google.ads.mediation.adaptertestkit.createMediationBannerAdConfigurat
 import com.google.ads.mediation.ironsource.IronSourceBannerAd.getFromAvailableInstances
 import com.google.ads.mediation.ironsource.IronSourceMediationAdapter.IRONSOURCE_SDK_ERROR_DOMAIN
 import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.mediation.MediationAdLoadCallback
 import com.google.android.gms.ads.mediation.MediationBannerAd
 import com.google.android.gms.ads.mediation.MediationBannerAdCallback
@@ -26,6 +27,7 @@ import org.mockito.Mockito.mockStatic
 import org.mockito.kotlin.any
 import org.mockito.kotlin.argumentCaptor
 import org.mockito.kotlin.doReturn
+import org.mockito.kotlin.eq
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
 import org.mockito.kotlin.whenever
@@ -41,6 +43,8 @@ class IronSourceBannerAdTest {
 
   private val bannerAdLoadCallback =
     mock<MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback>>()
+
+  private val mediationUtils: MediationUtilsWrapper = mock()
 
   @After
   fun tearDown() {
@@ -225,11 +229,13 @@ class IronSourceBannerAdTest {
 
   private fun loadBannerAd(): IronSourceBannerAdListener {
     val mediationAdConfiguration = createMediationBannerAdConfiguration(activity)
+    whenever(mediationUtils.findClosestSize(eq(activity), eq(AdSize.BANNER), any())) doReturn
+      AdSize.BANNER
     ironSourceBannerAd = IronSourceBannerAd(bannerAdLoadCallback)
     val mockIronSourceBannerLayout = mock<ISDemandOnlyBannerLayout>()
     whenever(createBannerForDemandOnly(any(), any())) doReturn mockIronSourceBannerLayout
     val argumentCaptor = argumentCaptor<IronSourceBannerAdListener>()
-    ironSourceBannerAd.loadAd(mediationAdConfiguration)
+    ironSourceBannerAd.loadAd(mediationAdConfiguration, mediationUtils)
     verify(mockIronSourceBannerLayout).bannerDemandOnlyListener = argumentCaptor.capture()
     return argumentCaptor.firstValue
   }

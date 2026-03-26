@@ -47,13 +47,14 @@ class IronSourceRtbBannerAdTest {
   private val mockIsListener: BannerAdViewListener = mock()
   private val mockBannerAd: BannerAdView =
     org.mockito.kotlin.mock { on { listener } doReturn mockIsListener }
+  private val mediationUtils: MediationUtilsWrapper = mock()
 
   private val ironSourceRtbBannerAd = IronSourceRtbBannerAd(bannerAdLoadCallback)
 
   @Test
   fun onBannerAdLoaded_withValidBannerAd_expectOnSuccessCallback() {
     // Given
-    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig)
+    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig, mediationUtils)
 
     // When
     ironSourceRtbBannerAd.onBannerAdLoaded(mockBannerAd)
@@ -67,7 +68,7 @@ class IronSourceRtbBannerAdTest {
   @Test
   fun onLoadBanner_withoutBannerAdLoaded_expectNoCallback() {
     // When
-    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig)
+    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig, mediationUtils)
 
     // Then
     verifyNoInteractions(bannerAdLoadCallback)
@@ -85,7 +86,7 @@ class IronSourceRtbBannerAdTest {
   @Test
   fun onBannerAdLoadFailed_withValidBannerAd_expectOnFailureCallback() {
     // Given
-    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig)
+    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig, mediationUtils)
     val ironSourceError = IronSourceError(ERROR_CODE_DECRYPT_FAILED, "Decrypt failed.")
     ironSourceRtbBannerAd.onBannerAdLoadFailed(ironSourceError)
 
@@ -104,7 +105,7 @@ class IronSourceRtbBannerAdTest {
   @Test
   fun onBannerAdShown_withValidBannerAd_expectReportAdImpression() {
     // Given
-    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig)
+    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig, mediationUtils)
     ironSourceRtbBannerAd.onBannerAdLoaded(mockBannerAd)
 
     // When
@@ -117,7 +118,7 @@ class IronSourceRtbBannerAdTest {
   @Test
   fun onBannerAdClicked_withValidBannerAd_expectOnBannerAdClickedCallbacks() {
     // Given
-    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig)
+    ironSourceRtbBannerAd.loadRtbAd(mockInterstitialAdConfig, mediationUtils)
     ironSourceRtbBannerAd.onBannerAdLoaded(mockBannerAd)
     ironSourceRtbBannerAd.onBannerAdShown(mockBannerAd)
 

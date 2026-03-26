@@ -116,8 +116,10 @@ public class IronSourceBannerAd implements MediationBannerAd {
     }
   }
 
-  public void loadAd(@NonNull MediationBannerAdConfiguration adConfiguration) {
-    if (!isParamsValid(adConfiguration)) {
+  public void loadAd(
+      @NonNull MediationBannerAdConfiguration adConfiguration,
+      MediationUtilsWrapper mediationUtils) {
+    if (!isParamsValid(adConfiguration, mediationUtils)) {
       return;
     }
 
@@ -135,7 +137,9 @@ public class IronSourceBannerAd implements MediationBannerAd {
   }
 
   /** Checks if the parameters for loading this instance are valid. */
-  private boolean isParamsValid(@NonNull MediationBannerAdConfiguration adConfiguration) {
+  private boolean isParamsValid(
+      @NonNull MediationBannerAdConfiguration adConfiguration,
+      MediationUtilsWrapper mediationUtils) {
     Bundle serverParameters = adConfiguration.getServerParameters();
     String instanceID = serverParameters.getString(KEY_INSTANCE_ID, DEFAULT_NON_RTB_INSTANCE_ID);
     Context context = adConfiguration.getContext();
@@ -159,7 +163,8 @@ public class IronSourceBannerAd implements MediationBannerAd {
     }
 
     AdSize adSize = adConfiguration.getAdSize();
-    bannerSizeIronSource = IronSourceAdapterUtils.getISBannerSizeFromGoogleAdSize(context, adSize);
+    bannerSizeIronSource =
+        IronSourceAdapterUtils.getISBannerSizeFromGoogleAdSize(context, adSize, mediationUtils);
     if (bannerSizeIronSource == null) {
       AdError sizeError =
           new AdError(

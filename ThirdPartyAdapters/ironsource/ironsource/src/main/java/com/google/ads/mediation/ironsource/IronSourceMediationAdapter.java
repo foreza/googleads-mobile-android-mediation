@@ -108,6 +108,17 @@ public class IronSourceMediationAdapter extends RtbAdapter {
 
   // endregion
 
+  private final MediationUtilsWrapper mediationUtils;
+
+  IronSourceMediationAdapter() {
+    mediationUtils = new MediationUtilsWrapper();
+  }
+
+  @VisibleForTesting
+  IronSourceMediationAdapter(MediationUtilsWrapper mediationUtilsWrapper) {
+    mediationUtils = mediationUtilsWrapper;
+  }
+
   @NonNull
   @Override
   public VersionInfo getSDKVersionInfo() {
@@ -338,7 +349,7 @@ public class IronSourceMediationAdapter extends RtbAdapter {
               mediationAdLoadCallback) {
     IronSourceRtbBannerAd ironSourceRtbBannerAd =
         new IronSourceRtbBannerAd(mediationAdLoadCallback);
-    ironSourceRtbBannerAd.loadRtbAd(adConfiguration);
+    ironSourceRtbBannerAd.loadRtbAd(adConfiguration, mediationUtils);
   }
 
   @Override
@@ -359,7 +370,7 @@ public class IronSourceMediationAdapter extends RtbAdapter {
     }
 
     IronSourceBannerAd ironSourceBannerAd = new IronSourceBannerAd(mediationAdLoadCallback);
-    ironSourceBannerAd.loadAd(adConfiguration);
+    ironSourceBannerAd.loadAd(adConfiguration, mediationUtils);
   }
 
   @VisibleForTesting

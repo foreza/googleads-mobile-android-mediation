@@ -86,6 +86,7 @@ class IronSourceMediationAdapterTest {
     mock<MediationAdLoadCallback<MediationInterstitialAd, MediationInterstitialAdCallback>>()
   private val mockRewardedAdLoadCallback =
     mock<MediationAdLoadCallback<MediationRewardedAd, MediationRewardedAdCallback>>()
+  private val mediationUtils: MediationUtilsWrapper = mock()
 
   @Before
   fun setUp() {
@@ -97,7 +98,7 @@ class IronSourceMediationAdapterTest {
         .setTagForUnderAgeOfConsent(RequestConfiguration.TAG_FOR_UNDER_AGE_OF_CONSENT_UNSPECIFIED)
         .build()
     MobileAds.setRequestConfiguration(requestConfiguration)
-    adapter = IronSourceMediationAdapter()
+    adapter = IronSourceMediationAdapter(mediationUtils)
   }
 
   @Test
@@ -441,6 +442,8 @@ class IronSourceMediationAdapterTest {
       whenever(createBannerForDemandOnly(any(), any())) doReturn mockISBannerLayout
       adapter.setIsInitialized(true)
       val mediationAdConfiguration = createMediationBannerAdConfiguration(activity)
+      whenever(mediationUtils.findClosestSize(eq(activity), eq(AdSize.BANNER), any())) doReturn
+        AdSize.BANNER
 
       adapter.loadBannerAd(mediationAdConfiguration, mockBannerAdLoadCallback)
 
@@ -452,6 +455,8 @@ class IronSourceMediationAdapterTest {
   fun loadBannerAd_alreadyLoadedInstanceId_expectOnFailureCallbackWithAdError() {
     adapter.setIsInitialized(true)
     val mediationAdConfiguration = createMediationBannerAdConfiguration(activity)
+    whenever(mediationUtils.findClosestSize(eq(activity), eq(AdSize.BANNER), any())) doReturn
+      AdSize.BANNER
     adapter.loadBannerAd(mediationAdConfiguration, mockBannerAdLoadCallback)
 
     adapter.loadBannerAdWithFailure(
@@ -469,6 +474,8 @@ class IronSourceMediationAdapterTest {
   fun loadBannerAd_referenceToPreviouslyLoadedAdCleared_loadsSuccessfully() {
     adapter.setIsInitialized(true)
     val mediationAdConfiguration = createMediationBannerAdConfiguration(activity)
+    whenever(mediationUtils.findClosestSize(eq(activity), eq(AdSize.BANNER), any())) doReturn
+      AdSize.BANNER
     adapter.loadBannerAd(mediationAdConfiguration, mockBannerAdLoadCallback)
     // Clear the ad reference's reference to the ad object.
     IronSourceBannerAd.availableBannerInstances["0"]?.clear()

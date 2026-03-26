@@ -61,7 +61,9 @@ public class IronSourceRtbBannerAd
     adLoadCallback = mediationAdLoadCallback;
   }
 
-  public void loadRtbAd(@NonNull MediationBannerAdConfiguration adConfiguration) {
+  public void loadRtbAd(
+      @NonNull MediationBannerAdConfiguration adConfiguration,
+      MediationUtilsWrapper mediationUtils) {
     Bundle serverParameters = adConfiguration.getServerParameters();
     String instanceID = serverParameters.getString(KEY_INSTANCE_ID, "");
     if (TextUtils.isEmpty(instanceID)) {
@@ -81,7 +83,10 @@ public class IronSourceRtbBannerAd
     String bidToken = adConfiguration.getBidResponse();
     BannerAdRequest adRequest =
         new BannerAdRequest.Builder(
-                context, instanceID, bidToken, getAdSizeFromGoogleAdSize(context, adSize))
+                context,
+                instanceID,
+                bidToken,
+                getAdSizeFromGoogleAdSize(context, adSize, mediationUtils))
             .withExtraParams(watermarkBundle)
             .build();
     ironSourceAdView = new FrameLayout(context);

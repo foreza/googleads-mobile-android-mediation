@@ -26,7 +26,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.MediationUtils;
 import com.google.android.gms.ads.MobileAds;
 import com.ironsource.mediationsdk.ISBannerSize;
 import java.lang.ref.WeakReference;
@@ -42,13 +41,13 @@ public class IronSourceAdapterUtils {
 
   @Nullable
   public static ISBannerSize getISBannerSizeFromGoogleAdSize(
-      @NonNull Context context, @NonNull AdSize adSize) {
+      @NonNull Context context, @NonNull AdSize adSize, MediationUtilsWrapper mediationUtils) {
     ArrayList<AdSize> potentials = new ArrayList<>();
     potentials.add(AdSize.BANNER);
     potentials.add(AdSize.MEDIUM_RECTANGLE);
     potentials.add(AdSize.LARGE_BANNER);
 
-    AdSize closestSize = MediationUtils.findClosestSize(context, adSize, potentials);
+    AdSize closestSize = mediationUtils.findClosestSize(context, adSize, potentials);
     if (closestSize == null) {
       return null;
     }
@@ -68,13 +67,13 @@ public class IronSourceAdapterUtils {
 
   @NonNull
   public static com.unity3d.ironsourceads.AdSize getAdSizeFromGoogleAdSize(
-      @NonNull Context context, @NonNull AdSize adSize) {
+      @NonNull Context context, @NonNull AdSize adSize, MediationUtilsWrapper mediationUtils) {
     ArrayList<AdSize> potentials =
         new ArrayList<>(
             Arrays.asList(
                 AdSize.BANNER, AdSize.MEDIUM_RECTANGLE, AdSize.LARGE_BANNER, AdSize.LEADERBOARD));
 
-    AdSize closestSize = MediationUtils.findClosestSize(context, adSize, potentials);
+    AdSize closestSize = mediationUtils.findClosestSize(context, adSize, potentials);
     if (closestSize == null) {
       return com.unity3d.ironsourceads.AdSize.banner();
     }
