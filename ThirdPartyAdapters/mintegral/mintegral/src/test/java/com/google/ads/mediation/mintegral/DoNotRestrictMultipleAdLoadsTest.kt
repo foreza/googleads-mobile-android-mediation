@@ -166,6 +166,7 @@ class DoNotRestrictMultipleAdLoadsTest {
       MintegralMediationAdapter(
         SynchronousExecutorService(),
         /*flagValueGetter=*/ mock { on { shouldRestrictMultipleAdLoads() } doReturn false },
+        mock(),
       )
   }
 

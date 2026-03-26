@@ -90,6 +90,7 @@ class MintegralMediationAdapterTest {
     MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback> =
     mock()
   private val mbBannerView: MBBannerView = mock()
+  private val mediationUtils: MediationUtilsWrapper = mock()
 
   @Before
   fun setUp() {
@@ -105,6 +106,7 @@ class MintegralMediationAdapterTest {
       MintegralMediationAdapter(
         SynchronousExecutorService(),
         /*flagValueGetter=*/ mock { on { shouldRestrictMultipleAdLoads() } doReturn false },
+        mediationUtils,
       )
   }
 

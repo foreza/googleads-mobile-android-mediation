@@ -21,10 +21,10 @@ import android.util.Log;
 import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import com.google.ads.mediation.mintegral.MediationUtilsWrapper;
 import com.google.ads.mediation.mintegral.MintegralConstants;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.MediationUtils;
 import com.google.android.gms.ads.mediation.MediationAdLoadCallback;
 import com.google.android.gms.ads.mediation.MediationBannerAd;
 import com.google.android.gms.ads.mediation.MediationBannerAdCallback;
@@ -51,18 +51,22 @@ public abstract class MintegralBannerAd extends BannerAdWithCodeListener impleme
   }
 
   /** Loads a Mintegral banner ad. */
-  public abstract void loadAd(MediationBannerAdConfiguration adConfiguration);
+  public abstract void loadAd(
+      MediationBannerAdConfiguration adConfiguration, MediationUtilsWrapper mediationUtils);
 
   @Nullable
   public static BannerSize getMintegralBannerSizeFromAdMobAdSize(
-      @NonNull AdSize adSize, @NonNull Context context, boolean isRtb) {
+      @NonNull AdSize adSize,
+      @NonNull Context context,
+      boolean isRtb,
+      MediationUtilsWrapper mediationUtils) {
     // Sizes supported by Mintegral for Waterfall ad requests.
     ArrayList<AdSize> supportedAdSizes = new ArrayList<>();
     supportedAdSizes.add(new AdSize(320, 50));
     supportedAdSizes.add(new AdSize(300, 250));
     supportedAdSizes.add(new AdSize(728, 90));
 
-    AdSize closestSize = MediationUtils.findClosestSize(context, adSize, supportedAdSizes);
+    AdSize closestSize = mediationUtils.findClosestSize(context, adSize, supportedAdSizes);
 
     // Size to be used for making the Mintegral ad request. This is a Google size object.
     AdSize googleSizeForMintegral = null;

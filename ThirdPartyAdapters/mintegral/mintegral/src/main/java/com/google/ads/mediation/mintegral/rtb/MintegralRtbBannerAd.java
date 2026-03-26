@@ -20,6 +20,7 @@ import static com.google.ads.mediation.mintegral.MintegralMediationAdapter.TAG;
 import android.util.Log;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
+import com.google.ads.mediation.mintegral.MediationUtilsWrapper;
 import com.google.ads.mediation.mintegral.MintegralConstants;
 import com.google.ads.mediation.mintegral.MintegralFactory;
 import com.google.ads.mediation.mintegral.MintegralUtils;
@@ -43,10 +44,14 @@ public class MintegralRtbBannerAd extends MintegralBannerAd {
   }
 
   @Override
-  public void loadAd(MediationBannerAdConfiguration adConfiguration) {
+  public void loadAd(
+      MediationBannerAdConfiguration adConfiguration, MediationUtilsWrapper mediationUtils) {
     BannerSize bannerSize =
         getMintegralBannerSizeFromAdMobAdSize(
-            adConfiguration.getAdSize(), adConfiguration.getContext(), /* isRtb= */ true);
+            adConfiguration.getAdSize(),
+            adConfiguration.getContext(),
+            /* isRtb= */ true,
+            mediationUtils);
     if (bannerSize == null) {
       AdError bannerSizeError = MintegralConstants.createAdapterError(ERROR_BANNER_SIZE_UNSUPPORTED,
           String.format("The requested banner size: %s is not supported by Mintegral SDK.",

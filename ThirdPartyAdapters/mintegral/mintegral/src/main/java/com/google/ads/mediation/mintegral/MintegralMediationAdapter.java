@@ -106,15 +106,22 @@ public class MintegralMediationAdapter extends RtbAdapter {
 
   private final FlagValueGetter flagValueGetter;
 
+  private final MediationUtilsWrapper mediationUtils;
+
   public MintegralMediationAdapter() {
     executorService = Executors.newCachedThreadPool();
     flagValueGetter = new FlagValueGetter();
+    mediationUtils = new MediationUtilsWrapper();
   }
 
   @VisibleForTesting
-  MintegralMediationAdapter(ExecutorService executorService, FlagValueGetter flagValueGetter) {
+  MintegralMediationAdapter(
+      ExecutorService executorService,
+      FlagValueGetter flagValueGetter,
+      MediationUtilsWrapper mediationUtilsWrapper) {
     this.executorService = executorService;
     this.flagValueGetter = flagValueGetter;
+    mediationUtils = mediationUtilsWrapper;
   }
 
   @Override
@@ -262,7 +269,7 @@ public class MintegralMediationAdapter extends RtbAdapter {
     flagValueGetter.processMultipleAdLoadsServerParam(adConfiguration.getServerParameters());
 
     mintegralRtbBannerAd = new MintegralRtbBannerAd(callback);
-    mintegralRtbBannerAd.loadAd(adConfiguration);
+    mintegralRtbBannerAd.loadAd(adConfiguration, mediationUtils);
   }
 
   @Override
@@ -311,7 +318,7 @@ public class MintegralMediationAdapter extends RtbAdapter {
     flagValueGetter.processMultipleAdLoadsServerParam(adConfiguration.getServerParameters());
 
     mintegralWaterfallBannerAd = new MintegralWaterfallBannerAd(callback);
-    mintegralWaterfallBannerAd.loadAd(adConfiguration);
+    mintegralWaterfallBannerAd.loadAd(adConfiguration, mediationUtils);
   }
 
   @Override
