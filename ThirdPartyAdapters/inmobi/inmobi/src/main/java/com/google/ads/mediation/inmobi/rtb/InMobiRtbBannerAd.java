@@ -8,6 +8,7 @@ import com.google.ads.mediation.inmobi.InMobiBannerWrapper;
 import com.google.ads.mediation.inmobi.InMobiExtras;
 import com.google.ads.mediation.inmobi.InMobiExtrasBuilder;
 import com.google.ads.mediation.inmobi.InMobiInitializer;
+import com.google.ads.mediation.inmobi.MediationUtilsWrapper;
 import com.google.ads.mediation.inmobi.renderers.InMobiBannerAd;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.mediation.MediationAdLoadCallback;
@@ -30,14 +31,16 @@ public class InMobiRtbBannerAd extends InMobiBannerAd {
   }
 
   @Override
-  public void loadAd(@NonNull MediationBannerAdConfiguration mediationBannerAdConfiguration) {
+  public void loadAd(
+      @NonNull MediationBannerAdConfiguration mediationBannerAdConfiguration,
+      MediationUtilsWrapper mediationUtils) {
     final Context context = mediationBannerAdConfiguration.getContext();
 
     // Try to find the closest banner size that is one of the standard banner sizes supported by
     // InMobi
     AdSize bannerSize =
         InMobiAdapterUtils.findClosestBannerSize(
-            context, mediationBannerAdConfiguration.getAdSize());
+            context, mediationBannerAdConfiguration.getAdSize(), mediationUtils);
     // If cannot find a standard banner size that is close to the requested size, just pass the
     // requested size as the banner size and let InMobi SDK handle the non-standard size.
     if (bannerSize == null) {

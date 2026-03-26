@@ -31,6 +31,7 @@ import com.google.ads.mediation.inmobi.InMobiAdapterUtils;
 import com.google.ads.mediation.inmobi.InMobiBannerWrapper;
 import com.google.ads.mediation.inmobi.InMobiConstants;
 import com.google.ads.mediation.inmobi.InMobiInitializer;
+import com.google.ads.mediation.inmobi.MediationUtilsWrapper;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.mediation.MediationAdLoadCallback;
@@ -70,7 +71,8 @@ public abstract class InMobiBannerAd extends BannerAdEventListener implements Me
       @NonNull MediationBannerAdConfiguration mediationBannerAdConfiguration);
 
   public abstract void loadAd(
-      @NonNull MediationBannerAdConfiguration mediationBannerAdConfiguration);
+      @NonNull MediationBannerAdConfiguration mediationBannerAdConfiguration,
+      MediationUtilsWrapper mediationUtils);
 
   protected void createAndLoadBannerAd(
       @NonNull final Context context,

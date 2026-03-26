@@ -26,7 +26,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.MediationUtils;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
 import com.inmobi.ads.InMobiAdRequestStatus;
@@ -263,12 +262,13 @@ public class InMobiAdapterUtils {
   }
 
   @Nullable
-  public static AdSize findClosestBannerSize(@NonNull Context context, @NonNull AdSize adSize) {
+  public static AdSize findClosestBannerSize(
+      @NonNull Context context, @NonNull AdSize adSize, MediationUtilsWrapper mediationUtils) {
     ArrayList<AdSize> potentials = new ArrayList<>();
     potentials.add(new AdSize(320, 50));
     potentials.add(new AdSize(300, 250));
     potentials.add(new AdSize(728, 90));
-    return MediationUtils.findClosestSize(context, adSize, potentials);
+    return mediationUtils.findClosestSize(context, adSize, potentials);
   }
 
   @Nullable

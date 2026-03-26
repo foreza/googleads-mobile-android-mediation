@@ -75,6 +75,7 @@ class InMobiMediationAdapterTest {
   private val nativeAdLoadCallback =
     mock<MediationAdLoadCallback<UnifiedNativeAdMapper, MediationNativeAdCallback>>()
   private val inMobiNativeWrapper = mock<InMobiNativeWrapper>()
+  private val mediationUtils: MediationUtilsWrapper = mock()
 
   lateinit var serverParameters: Bundle
   lateinit var adapter: InMobiMediationAdapter
@@ -87,6 +88,13 @@ class InMobiMediationAdapterTest {
 
     whenever(bannerAdConfiguration.context).thenReturn(context)
     whenever(bannerAdConfiguration.adSize).thenReturn(originalBannerSize)
+    whenever(
+      mediationUtils.findClosestSize(
+        org.mockito.kotlin.eq(context),
+        org.mockito.kotlin.eq(originalBannerSize),
+        org.mockito.kotlin.any(),
+      )
+    ) doReturn expectedMediationBannerSize
     whenever(bannerAdConfiguration.serverParameters).thenReturn(serverParameters)
     whenever(bannerAdConfiguration.watermark).thenReturn(TEST_WATERMARK)
     whenever(inMobiAdFactory.createInMobiBannerWrapper(any(), any()))
@@ -107,7 +115,8 @@ class InMobiMediationAdapterTest {
     whenever(inMobiAdFactory.createInMobiNativeWrapper(any(), any(), any()))
       .thenReturn(inMobiNativeWrapper)
 
-    adapter = InMobiMediationAdapter(inMobiInitializer, inMobiAdFactory, inMobiSdkWrapper)
+    adapter =
+      InMobiMediationAdapter(inMobiInitializer, inMobiAdFactory, inMobiSdkWrapper, mediationUtils)
   }
 
   @Test

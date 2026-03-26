@@ -1,6 +1,6 @@
 ## InMobi Android Mediation Adapter Changelog
 
-#### Next Version
+#### Version 11.1.1.1 (In progress)
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 11.1.1.0

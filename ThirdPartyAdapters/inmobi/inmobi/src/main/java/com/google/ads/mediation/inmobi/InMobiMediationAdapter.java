@@ -92,15 +92,19 @@ public class InMobiMediationAdapter extends RtbAdapter {
 
   private InMobiSdkWrapper inMobiSdkWrapper;
 
+  private MediationUtilsWrapper mediationUtils;
+
   /** {@link Adapter} implementation */
   @VisibleForTesting
   InMobiMediationAdapter(
       InMobiInitializer inMobiInitializer,
       InMobiAdFactory inMobiAdFactory,
-      InMobiSdkWrapper inMobiSdkWrapper) {
+      InMobiSdkWrapper inMobiSdkWrapper,
+      MediationUtilsWrapper mediationUtilsWrapper) {
     this.inMobiInitializer = inMobiInitializer;
     this.inMobiAdFactory = inMobiAdFactory;
     this.inMobiSdkWrapper = inMobiSdkWrapper;
+    mediationUtils = mediationUtilsWrapper;
   }
 
   public InMobiMediationAdapter() {
@@ -108,6 +112,7 @@ public class InMobiMediationAdapter extends RtbAdapter {
     this.inMobiInitializer = InMobiInitializer.getInstance();
     this.inMobiAdFactory = new InMobiAdFactory();
     this.inMobiSdkWrapper = new InMobiSdkWrapper();
+    mediationUtils = new MediationUtilsWrapper();
   }
 
   @NonNull
@@ -221,7 +226,7 @@ public class InMobiMediationAdapter extends RtbAdapter {
       @NonNull MediationBannerAdConfiguration adConfiguration,
       @NonNull MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback> callback) {
     inMobiRtbBannerAd = new InMobiRtbBannerAd(callback, inMobiInitializer, inMobiAdFactory);
-    inMobiRtbBannerAd.loadAd(adConfiguration);
+    inMobiRtbBannerAd.loadAd(adConfiguration, mediationUtils);
   }
 
   @Override
@@ -287,7 +292,7 @@ public class InMobiMediationAdapter extends RtbAdapter {
       @NonNull MediationAdLoadCallback<MediationBannerAd, MediationBannerAdCallback> callback) {
     inMobiWaterfallBannerAd =
         new InMobiWaterfallBannerAd(callback, inMobiInitializer, inMobiAdFactory);
-    inMobiWaterfallBannerAd.loadAd(adConfiguration);
+    inMobiWaterfallBannerAd.loadAd(adConfiguration, mediationUtils);
   }
 
   @Override

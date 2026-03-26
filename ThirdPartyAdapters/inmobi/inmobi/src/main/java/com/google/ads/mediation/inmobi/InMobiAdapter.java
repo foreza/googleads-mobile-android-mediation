@@ -25,17 +25,14 @@ import com.google.android.gms.ads.mediation.Adapter;
 @Keep
 public final class InMobiAdapter extends InMobiMediationAdapter {
 
-  /**
-   * {@link Adapter} implementation
-   *
-   * @param inMobiInitializer
-   */
+  /** {@link Adapter} implementation */
   @VisibleForTesting
   InMobiAdapter(
       InMobiInitializer inMobiInitializer,
       InMobiAdFactory inMobiAdFactory,
-      InMobiSdkWrapper inMobiSdkWrapper) {
-    super(inMobiInitializer, inMobiAdFactory, inMobiSdkWrapper);
+      InMobiSdkWrapper inMobiSdkWrapper,
+      MediationUtilsWrapper mediationUtilsWrapper) {
+    super(inMobiInitializer, inMobiAdFactory, inMobiSdkWrapper, mediationUtilsWrapper);
   }
 
   public InMobiAdapter() {

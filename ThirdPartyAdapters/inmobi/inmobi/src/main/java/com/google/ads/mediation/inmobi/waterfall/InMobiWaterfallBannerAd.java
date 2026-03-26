@@ -14,6 +14,7 @@ import com.google.ads.mediation.inmobi.InMobiConstants;
 import com.google.ads.mediation.inmobi.InMobiExtras;
 import com.google.ads.mediation.inmobi.InMobiExtrasBuilder;
 import com.google.ads.mediation.inmobi.InMobiInitializer;
+import com.google.ads.mediation.inmobi.MediationUtilsWrapper;
 import com.google.ads.mediation.inmobi.renderers.InMobiBannerAd;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdSize;
@@ -37,11 +38,13 @@ public class InMobiWaterfallBannerAd extends InMobiBannerAd {
   }
 
   @Override
-  public void loadAd(@NonNull MediationBannerAdConfiguration mediationBannerAdConfiguration) {
+  public void loadAd(
+      @NonNull MediationBannerAdConfiguration mediationBannerAdConfiguration,
+      MediationUtilsWrapper mediationUtils) {
     final Context context = mediationBannerAdConfiguration.getContext();
     final AdSize closestBannerSize =
         InMobiAdapterUtils.findClosestBannerSize(
-            context, mediationBannerAdConfiguration.getAdSize());
+            context, mediationBannerAdConfiguration.getAdSize(), mediationUtils);
     if (closestBannerSize == null) {
       AdError bannerSizeError =
           InMobiConstants.createAdapterError(
