@@ -12,7 +12,7 @@ ext {
     // String property to store the proper name of the mediation network adapter.
     adapterName = "Line"
     // String property to store version name.
-    stringVersion = "3.0.1.2"
+    stringVersion = "3.1.0.0"
     // String property to store group id.
     stringGroupId = "com.google.ads.mediation"
     // Jacoco version to generate code coverage data
@@ -25,7 +25,7 @@ kotlin {
 
 android {
     namespace 'com.google.ads.mediation.line'
-    compileSdk 35
+    compileSdk 36
 
     defaultConfig {
         if (project.hasProperty('useNextGenGma')) {
@@ -34,7 +34,7 @@ android {
             minSdk 23
         }
         targetSdk 33
-        versionCode 3000202
+        versionCode 3000101
         versionName stringVersion
         multiDexEnabled true
         buildConfigField('String', 'ADAPTER_VERSION', "\"${stringVersion}\"")
@@ -140,7 +140,7 @@ dependencies {
     } else {
         implementation 'com.google.android.gms:play-services-ads:25.1.0'
     }
-    implementation 'com.linecorp.adsnetwork:fivead:3.0.1'
+    implementation 'com.linecorp.adsnetwork:fivead:3.1.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     testImplementation 'junit:junit:4.13.2'

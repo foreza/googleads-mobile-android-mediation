@@ -1,6 +1,6 @@
 ## LINE Android Mediation Adapter Changelog
 
-#### Version 3.0.1.2 (In progress)
+#### Version 3.1.0.0 (In progress)
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 3.0.1.1 (In progress)
