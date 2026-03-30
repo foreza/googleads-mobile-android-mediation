@@ -1,6 +1,6 @@
 ## DT Exchange Android Mediation Adapter Changelog
 
-#### Next Version
+#### Version 8.4.4.0 (In progress)
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 8.4.3.0
