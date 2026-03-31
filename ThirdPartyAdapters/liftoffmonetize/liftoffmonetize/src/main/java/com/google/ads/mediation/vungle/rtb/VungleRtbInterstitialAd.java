@@ -44,13 +44,11 @@ import com.vungle.ads.VungleError;
 
 public class VungleRtbInterstitialAd implements MediationInterstitialAd, InterstitialAdListener {
 
-
   @NonNull
   private final MediationAdLoadCallback<MediationInterstitialAd, MediationInterstitialAdCallback>
       mediationAdLoadCallback;
 
-  @Nullable
-  private MediationInterstitialAdCallback mediationInterstitialAdCallback;
+  @Nullable private MediationInterstitialAdCallback mediationInterstitialAdCallback;
 
   private InterstitialAd interstitialAd;
 
@@ -65,7 +63,8 @@ public class VungleRtbInterstitialAd implements MediationInterstitialAd, Interst
     this.vungleFactory = vungleFactory;
   }
 
-  public void render(@NonNull MediationInterstitialAdConfiguration mediationInterstitialAdConfiguration) {
+  public void render(
+      @NonNull MediationInterstitialAdConfiguration mediationInterstitialAdConfiguration) {
     Bundle mediationExtras = mediationInterstitialAdConfiguration.getMediationExtras();
     Bundle serverParameters = mediationInterstitialAdConfiguration.getServerParameters();
 
@@ -73,10 +72,12 @@ public class VungleRtbInterstitialAd implements MediationInterstitialAd, Interst
 
     if (TextUtils.isEmpty(appID)) {
       AdError error =
-          new AdError(ERROR_INVALID_SERVER_PARAMETERS,
+          new AdError(
+              ERROR_INVALID_SERVER_PARAMETERS,
               "Failed to load bidding interstitial ad from Liftoff Monetize. "
                   + "Missing or invalid App ID configured for this ad source instance "
-                  + "in the AdMob or Ad Manager UI.", ERROR_DOMAIN);
+                  + "in the AdMob or Ad Manager UI.",
+              ERROR_DOMAIN);
       Log.w(TAG, error.toString());
       mediationAdLoadCallback.onFailure(error);
       return;
@@ -89,7 +90,8 @@ public class VungleRtbInterstitialAd implements MediationInterstitialAd, Interst
               ERROR_INVALID_SERVER_PARAMETERS,
               "Failed to load bidding interstitial ad from Liftoff Monetize. "
                   + "Missing or Invalid Placement ID configured for this ad source instance "
-                  + "in the AdMob or Ad Manager UI.", ERROR_DOMAIN);
+                  + "in the AdMob or Ad Manager UI.",
+              ERROR_DOMAIN);
       Log.w(TAG, error.toString());
       mediationAdLoadCallback.onFailure(error);
       return;
@@ -117,6 +119,7 @@ public class VungleRtbInterstitialAd implements MediationInterstitialAd, Interst
               public void onInitializeSuccess() {
                 interstitialAd = vungleFactory.createInterstitialAd(context, placement, adConfig);
                 interstitialAd.setAdListener(VungleRtbInterstitialAd.this);
+                interstitialAd.setAdapterAdFormat("VungleRtbInterstitialAd");
                 interstitialAd.load(adMarkup);
               }
 
@@ -133,9 +136,11 @@ public class VungleRtbInterstitialAd implements MediationInterstitialAd, Interst
     if (interstitialAd != null) {
       interstitialAd.play(context);
     } else if (mediationInterstitialAdCallback != null) {
-      AdError error = new AdError(ERROR_CANNOT_PLAY_AD, "Failed to show bidding rewarded"
-          + " ad from Liftoff Monetize.",
-          ERROR_DOMAIN);
+      AdError error =
+          new AdError(
+              ERROR_CANNOT_PLAY_AD,
+              "Failed to show bidding rewarded" + " ad from Liftoff Monetize.",
+              ERROR_DOMAIN);
       Log.w(TAG, error.toString());
       mediationInterstitialAdCallback.onAdFailedToShow(error);
     }
@@ -197,5 +202,4 @@ public class VungleRtbInterstitialAd implements MediationInterstitialAd, Interst
       mediationInterstitialAdCallback.reportAdImpression();
     }
   }
-
 }

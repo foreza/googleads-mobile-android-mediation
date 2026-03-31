@@ -2,6 +2,8 @@
 
 #### Next Version
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
+- logging adaptive banner size mismatch through VungleMediationLogger introduced in 7.7.1.
+- setting adapterAdFormat property in BaseAd introduced in 7.7.1.
 
 #### Version 7.7.1.0
 - Verified compatibility with Vungle SDK 7.7.1.
