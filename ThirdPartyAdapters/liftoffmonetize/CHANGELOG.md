@@ -1,6 +1,6 @@
 ## Liftoff Monetize Android Mediation Adapter Changelog
 
-#### Next Version
+#### Version 7.7.2.0 (In progress)
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 - logging adaptive banner size mismatch through VungleMediationLogger introduced in 7.7.1.
 - setting adapterAdFormat property in BaseAd introduced in 7.7.1.

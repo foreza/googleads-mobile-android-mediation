@@ -23,7 +23,6 @@ import com.vungle.ads.InitializationListener;
 import com.vungle.ads.VungleAds;
 import com.vungle.ads.VungleError;
 import com.vungle.ads.VunglePrivacySettings;
-import com.vungle.ads.VungleWrapperFramework;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -41,8 +40,7 @@ public class VungleInitializer implements InitializationListener {
   private VungleInitializer() {
     initListeners = new ArrayList<>();
     VungleAds.setIntegrationName(
-        VungleWrapperFramework.admob,
-        com.vungle.mediation.BuildConfig.ADAPTER_VERSION.replace('.', '_'));
+        "admob", com.vungle.mediation.BuildConfig.ADAPTER_VERSION.replace('.', '_'));
   }
 
   public void initialize(
