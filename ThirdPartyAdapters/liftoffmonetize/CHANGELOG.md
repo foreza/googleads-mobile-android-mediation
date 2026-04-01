@@ -1,5 +1,8 @@
 ## Liftoff Monetize Android Mediation Adapter Changelog
 
+#### Next Version
+- Added `MediationInterstitialAd` implementation to the interstitial ad format.
+
 #### Version 7.7.2.0 (In progress)
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 - logging adaptive banner size mismatch through VungleMediationLogger introduced in 7.7.1.
