@@ -45,4 +45,5 @@ dependencies {
     implementation("com.google.ads.mediation:vungle:+")
     implementation("com.google.ads.mediation:mintegral:+")
     implementation("com.google.ads.mediation:bigo:+")
+    implementation("com.google.ads.mediation:moloco:+")
 }
