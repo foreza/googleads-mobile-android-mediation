@@ -1,6 +1,6 @@
 ## Bigo Android Mediation Adapter Changelog
 
-#### Next Version
+#### Version 5.8.0.0 (In progress)
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 
 #### Version 5.7.1.0
