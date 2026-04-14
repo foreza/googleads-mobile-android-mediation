@@ -13,6 +13,7 @@ Built and tested with:
 
 Built and tested with:
 - Google Mobile Ads SDK version 25.1.0.
+- Google Mobile Ads Next-Gen SDK version 0.25.0-beta01.
 - Pangle SDK version 7.9.1.2.
 
 #### Version 7.9.1.1.0
