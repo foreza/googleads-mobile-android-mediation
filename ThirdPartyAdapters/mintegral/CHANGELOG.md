@@ -1,6 +1,8 @@
 ## Mintegral Android Mediation Adapter Changelog
 
-#### Version 17.1.31.0 (In progress)
+#### Version 17.1.41.0 (In progress)
+
+#### Version 17.1.31.0
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 - Verified compatibility with Mintegral SDK 17.1.31.
 
