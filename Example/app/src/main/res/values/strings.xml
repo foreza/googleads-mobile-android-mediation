@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">Mediation Sample</string>
+  <string name="app_name">Mediation Sample GAM Pixies</string>
   <string name="ad_attribution">Ad</string>
 
   <string name="customevent_app_open_ad_unit_id" translatable="false">

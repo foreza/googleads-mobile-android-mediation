@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.google.ads.mediation.sample.mediationsample;
+package com.labpixies.flood;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -33,14 +34,18 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.OnUserEarnedRewardListener;
+import com.google.android.gms.ads.admanager.AdManagerAdRequest;
+import com.google.android.gms.ads.admanager.AdManagerAdView;
+import com.google.android.gms.ads.admanager.AdManagerInterstitialAd;
+import com.google.android.gms.ads.admanager.AdManagerInterstitialAdLoadCallback;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 import com.google.android.gms.ads.appopen.AppOpenAd.AppOpenAdLoadCallback;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.gms.ads.initialization.AdapterStatus;
+import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.nativead.MediaView;
 import com.google.android.gms.ads.nativead.NativeAd;
 import com.google.android.gms.ads.nativead.NativeAdView;
@@ -50,24 +55,25 @@ import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAd;
 import com.google.android.gms.ads.rewardedinterstitial.RewardedInterstitialAdLoadCallback;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * A simple {@link android.app.Activity} that displays adds using the sample custom event.
  */
 public class MainActivity extends AppCompatActivity {
 
-  private final String LOG_TAG = "MediationExample";
+  private final String LOG_TAG = "MediationExample_GAM_Pixies";
 
-  // The banner ad view.
-  private AdView adView;
+  // The (Ad Manager) banner ad view.
+  private AdManagerAdView adView;
   // A loaded app open ad.
   private AppOpenAd appOpenAd;
   // The load app open button.
   private Button loadAppOpenButton;
   // The show app open button.
   private Button showAppOpenButton;
-  // A loaded interstitial ad.
-  private InterstitialAd interstitial;
+  // A loaded (Ad Manager) interstitial ad.
+  private AdManagerInterstitialAd interstitial;
   // The load interstitial button.
   private Button loadInterstitialButton;
   // The show interstitial button.
@@ -113,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     loadBannerButton.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View view) {
-        adView = new AdView(view.getContext());
+        adView = new AdManagerAdView(view.getContext());
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId(getBannerAdUnitId());
         adView.setAdListener(new AdListener() {
@@ -146,12 +152,12 @@ public class MainActivity extends AppCompatActivity {
           @Override
           public void onClick(View view) {
             loadInterstitialButton.setEnabled(false);
-            InterstitialAd.load(MainActivity.this,
+            AdManagerInterstitialAd.load(MainActivity.this,
                 getInterstitialAdUnitId(),
-                new AdRequest.Builder().build(),
-                new InterstitialAdLoadCallback() {
+                new AdManagerAdRequest.Builder().build(),
+                new AdManagerInterstitialAdLoadCallback() {
                   @Override
-                  public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                  public void onAdLoaded(@NonNull AdManagerInterstitialAd interstitialAd) {
                     Log.d(LOG_TAG, "Interstitial Ad loaded: " + interstitialAd.getResponseInfo());
 
                     interstitial = interstitialAd;
@@ -205,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
         loadRewardedButton.setEnabled(false);
         RewardedAd.load(MainActivity.this,
             getRewardedAdUnitId(),
-            new AdRequest.Builder().build(),
+            new AdManagerAdRequest.Builder().build(),
             new RewardedAdLoadCallback() {
               @Override
               public void onAdLoaded(@NonNull RewardedAd ad) {
@@ -305,51 +311,55 @@ public class MainActivity extends AppCompatActivity {
                     Toast.LENGTH_SHORT).show();
               }
             }).build();
-        adLoader.loadAd(new AdRequest.Builder().build());
+        adLoader.loadAd(new AdManagerAdRequest.Builder().build());
       }
     });
+
+
+    initialize(MainActivity.this); // Manually init the SDK.
   }
 
   /**
    * Gets the app open ad unit ID to test.
    */
   private String getAppOpenAdUnitId() {
-    return getResources().getString(R.string.customevent_app_open_ad_unit_id);
+    return ""; // Not testing this.
   }
 
   /**
    * Gets the banner ad unit ID to test.
    */
   private String getBannerAdUnitId() {
-    return getResources().getString(R.string.customevent_banner_ad_unit_id);
+    return "/217152209/pubmatic_android_waterfall_banner"; // 320x50
+//    return "/217152209/pubmatic_android_waterfall_mrec"; // 300x250 MREC - TODO: need to fix mapping
   }
 
   /**
    * Gets the interstitial ad unit ID to test.
    */
   private String getInterstitialAdUnitId() {
-    return getResources().getString(R.string.customevent_interstitial_ad_unit_id);
+    return "/217152209/pubmatic_android_waterfall_interstitial";
   }
 
   /**
    * Gets the rewarded ad unit ID to test.
    */
   private String getRewardedAdUnitId() {
-    return getResources().getString(R.string.customevent_rewarded_ad_unit_id);
+    return "/217152209/pubmatic_android_waterfall_rewarded";
   }
 
   /**
    * Gets the rewarded interstitial ad unit ID to test.
    */
   private String getRewardedInterstitialAdUnitId() {
-    return getResources().getString(R.string.customevent_rewarded_interstitial_ad_unit_id);
+    return ""; // Not testing this.
   }
 
   /**
    * Gets the native ad unit ID to test.
    */
   private String getNativeAdUnitId() {
-    return getResources().getString(R.string.customevent_native_ad_unit_id);
+    return "/217152209/pubmatic_android_waterfall_native";
   }
 
   /**
@@ -421,7 +431,7 @@ public class MainActivity extends AppCompatActivity {
 
     RewardedInterstitialAd.load(MainActivity.this,
         getRewardedInterstitialAdUnitId(),
-        new AdRequest.Builder().build(),
+        new AdManagerAdRequest.Builder().build(),
         new RewardedInterstitialAdLoadCallback() {
           @Override
           public void onAdLoaded(@NonNull RewardedInterstitialAd ad) {
@@ -566,4 +576,27 @@ public class MainActivity extends AppCompatActivity {
     // with the media content from this native ad.
     adView.setNativeAd(nativeAd);
   }
+
+  public void initialize(Context context) {
+    new Thread(
+            () ->
+                    // Initialize the Google Mobile Ads SDK on a background thread.
+                    MobileAds.initialize(context, this::logAdapterStatus))
+            .start();
+  }
+
+  private void logAdapterStatus(InitializationStatus initializationStatus) {
+    // Check each adapter's initialization status.
+    Map<String, AdapterStatus> statusMap = initializationStatus.getAdapterStatusMap();
+    for (Map.Entry<String, AdapterStatus> entry : statusMap.entrySet()) {
+      String adapterClass = entry.getKey();
+      AdapterStatus status = entry.getValue();
+      Log.d(
+              LOG_TAG,
+              String.format(
+                      "Adapter name: %s, Description: %s, Latency: %d",
+                      adapterClass, status.getDescription(), status.getLatency()));
+    }
+  }
+
 }

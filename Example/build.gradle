@@ -20,6 +20,11 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+//        Pubmatic
+        maven {
+            url = uri("https://repo.pubmatic.com/artifactory/public-repos")
+        }
+
 
         // Include partner mediation repositories if property is set explicitly to true.
         if (project.hasProperty('includeSnippets') && includeSnippets.toBoolean()) {
@@ -40,6 +45,6 @@ ext {
 
     appcompat = "androidx.appcompat:appcompat:1.6.1"
 
-    play = '24.2.0'
+    play = '25.1.0'
     playServicesAds = "com.google.android.gms:play-services-ads:$play"
 }

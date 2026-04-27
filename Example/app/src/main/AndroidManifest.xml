@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.google.ads.mediation.sample.mediationsample">
+    package="com.labpixies.flood">
 
   <!-- Include required permissions for Google Mobile Ads to run-->
   <uses-permission android:name="android.permission.INTERNET" />
@@ -15,7 +15,7 @@
 
     <meta-data
         android:name="com.google.android.gms.ads.APPLICATION_ID"
-        android:value="ca-app-pub-3940256099942544~2964678116" />
+        android:value="ca-app-pub-8696113672523618~4147662522" />
 
     <activity
         android:name=".MainActivity"
