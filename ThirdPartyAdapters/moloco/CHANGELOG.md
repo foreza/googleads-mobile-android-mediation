@@ -1,5 +1,10 @@
 ## Moloco Android Mediation Adapter Changelog
 
+#### Next version
+
+- Updated to pass in application context to Moloco.initialize() instead of
+  activity context to avoid memory leak.
+
 #### Version 4.7.0.0
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 - Verified compatibility with Moloco SDK 4.7.0.
