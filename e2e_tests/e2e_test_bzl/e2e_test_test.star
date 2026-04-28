@@ -19,6 +19,7 @@ adapter_e2e_test(
 adapter_e2e_test_workflow(
     name = "my_workflow",
     targets = [":my_e2e_test"],
+    pool_name = "my-pool",
 )
 
 expected_output = r"""
@@ -98,6 +99,7 @@ guitar_workflow_test(
             ],
             execution_method = "LOCAL",
             flaky_test_attempts = 10,
+            pool_name = "my-pool",
             targets = [":my_e2e_test"],
         )],
     ),
