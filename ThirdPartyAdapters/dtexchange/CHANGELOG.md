@@ -1,5 +1,8 @@
 ## DT Exchange Android Mediation Adapter Changelog
 
+#### Next Version
+- Added watermark on bidding ads.
+
 #### Version 8.4.4.0
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 - Verified compatibility with DT Exchange SDK 8.4.4.
