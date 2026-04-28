@@ -1,5 +1,8 @@
 ## Meta Audience Network Android Mediation Adapter Changelog
 
+#### Next Version
+- Updated native ad implementation to use the updated `NativeAdMapper` API.
+
 #### Version 6.21.0.2
 - Added property to build the adapter with GMA Next-Gen SDK dependency.
 

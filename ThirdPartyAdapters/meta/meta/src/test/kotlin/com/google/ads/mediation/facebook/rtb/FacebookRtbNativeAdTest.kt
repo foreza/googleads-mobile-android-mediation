@@ -26,7 +26,7 @@ import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.formats.UnifiedNativeAdAssetNames.ASSET_ICON
 import com.google.android.gms.ads.mediation.MediationAdLoadCallback
 import com.google.android.gms.ads.mediation.MediationNativeAdCallback
-import com.google.android.gms.ads.mediation.UnifiedNativeAdMapper
+import com.google.android.gms.ads.mediation.NativeAdMapper
 import com.google.common.truth.Truth.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -66,7 +66,7 @@ class FacebookRtbNativeAdTest {
     )
   private val nativeAdCallback = mock<MediationNativeAdCallback>()
   private val nativeAdLoadCallback:
-    MediationAdLoadCallback<UnifiedNativeAdMapper, MediationNativeAdCallback> =
+    MediationAdLoadCallback<NativeAdMapper, MediationNativeAdCallback> =
     mock {
       on { onSuccess(any()) } doReturn nativeAdCallback
     }
