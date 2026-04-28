@@ -69,6 +69,7 @@ android_instrumentation_test(
     tags = ["my_tag"],
     target_device = ":my_e2e_test_device",
     test_app = "//third_party/java_src/gma_sdk_mediation/e2e_tests/e2e_test_bzl:test_apk",
+    test_class = "com.google.ads.mediation.testapp.MyTestClass",
     utp_host_plugins = [
         ":my_e2e_test_extra_instrumentation_config",
         ":my_e2e_test_logcat",
