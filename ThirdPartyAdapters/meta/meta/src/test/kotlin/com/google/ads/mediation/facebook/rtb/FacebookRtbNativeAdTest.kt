@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.core.os.bundleOf
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.ext.truth.os.BundleSubject.assertThat
 import com.facebook.ads.MediaView
 import com.facebook.ads.MediaViewListener
 import com.facebook.ads.NativeAd
@@ -303,11 +304,11 @@ class FacebookRtbNativeAdTest {
     verify(metaMediaView).setListener(any())
     assertThat(facebookRtbNativeAd.hasVideoContent()).isTrue()
     val extras = facebookRtbNativeAd.extras
-    assertThat(extras.size()).isEqualTo(2)
-    assertThat(extras.containsKey(KEY_ID)).isTrue()
-    assertThat(extras.getString(KEY_ID)).isEqualTo(META_AD_ID)
-    assertThat(extras.containsKey(KEY_SOCIAL_CONTEXT_ASSET)).isTrue()
-    assertThat(extras.getString(KEY_SOCIAL_CONTEXT_ASSET)).isEqualTo(META_AD_SOCIAL_CONTEXT)
+    assertThat(extras).hasSize(2)
+    assertThat(extras).containsKey(KEY_ID)
+    assertThat(extras).string(KEY_ID).isEqualTo(META_AD_ID)
+    assertThat(extras).containsKey(KEY_SOCIAL_CONTEXT_ASSET)
+    assertThat(extras).string(KEY_SOCIAL_CONTEXT_ASSET).isEqualTo(META_AD_SOCIAL_CONTEXT)
     assertThat(facebookRtbNativeAd.adChoicesContent).isNotNull()
     verify(nativeAdLoadCallback).onSuccess(eq(facebookRtbNativeAd))
   }
@@ -349,11 +350,11 @@ class FacebookRtbNativeAdTest {
     assertThat(facebookRtbNativeAd.advertiser).isEqualTo(META_ADVERTISER_NAME)
     assertThat(facebookRtbNativeAd.hasVideoContent()).isTrue()
     val extras = facebookRtbNativeAd.extras
-    assertThat(extras.size()).isEqualTo(2)
-    assertThat(extras.containsKey(KEY_ID)).isTrue()
-    assertThat(extras.getString(KEY_ID)).isEqualTo(META_AD_ID)
-    assertThat(extras.containsKey(KEY_SOCIAL_CONTEXT_ASSET)).isTrue()
-    assertThat(extras.getString(KEY_SOCIAL_CONTEXT_ASSET)).isEqualTo(META_AD_SOCIAL_CONTEXT)
+    assertThat(extras).hasSize(2)
+    assertThat(extras).containsKey(KEY_ID)
+    assertThat(extras).string(KEY_ID).isEqualTo(META_AD_ID)
+    assertThat(extras).containsKey(KEY_SOCIAL_CONTEXT_ASSET)
+    assertThat(extras).string(KEY_SOCIAL_CONTEXT_ASSET).isEqualTo(META_AD_SOCIAL_CONTEXT)
     assertThat(facebookRtbNativeAd.adChoicesContent).isNotNull()
     verify(nativeAdLoadCallback).onSuccess(eq(facebookRtbNativeAd))
   }
