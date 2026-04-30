@@ -523,7 +523,7 @@ class FacebookMediationAdapterTest {
 
     val extraHintsCaptor = argumentCaptor<ExtraHints>()
     verify(metaBannerAd).setExtraHints(extraHintsCaptor.capture())
-    extraHintsCaptor.firstValue.mediationData.equals(WATERMARK)
+    assertThat(extraHintsCaptor.firstValue.mediationData).isEqualTo(WATERMARK)
     val frameLayoutParamsCaptor = argumentCaptor<FrameLayout.LayoutParams>()
     verify(metaBannerAd, times(2)).setLayoutParams(frameLayoutParamsCaptor.capture())
     frameLayoutParamsCaptor.firstValue.apply {
@@ -664,7 +664,7 @@ class FacebookMediationAdapterTest {
 
     val extraHintsCaptor = argumentCaptor<ExtraHints>()
     verify(metaRewardedAd).setExtraHints(extraHintsCaptor.capture())
-    extraHintsCaptor.firstValue.mediationData.equals(WATERMARK)
+    assertThat(extraHintsCaptor.firstValue.mediationData).isEqualTo(WATERMARK)
     assertThat(AdSettings.isMixedAudience()).isTrue()
     verify(metaRewardedAdLoadConfigBuilder).apply {
       withAdListener(any(FacebookRewardedAd::class.java))
@@ -761,7 +761,7 @@ class FacebookMediationAdapterTest {
 
       val extraHintsCaptor = argumentCaptor<ExtraHints>()
       verify(metaNativeAd).setExtraHints(extraHintsCaptor.capture())
-      extraHintsCaptor.firstValue.mediationData.equals(WATERMARK)
+      assertThat(extraHintsCaptor.firstValue.mediationData).isEqualTo(WATERMARK)
       assertThat(AdSettings.isMixedAudience()).isTrue()
       verify(metaNativeAdLoadConfigBuilder).apply {
         withAdListener(any(NativeAdListener::class.java))
@@ -841,7 +841,7 @@ class FacebookMediationAdapterTest {
 
     val extraHintsCaptor = argumentCaptor<ExtraHints>()
     verify(metaRewardedAd).setExtraHints(extraHintsCaptor.capture())
-    extraHintsCaptor.firstValue.mediationData.equals(WATERMARK)
+    assertThat(extraHintsCaptor.firstValue.mediationData).isEqualTo(WATERMARK)
     assertThat(AdSettings.isMixedAudience()).isTrue()
     verify(metaRewardedAdLoadConfigBuilder)
       .withAdListener(any(FacebookRewardedInterstitialAd::class.java))
