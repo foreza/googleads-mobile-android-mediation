@@ -558,6 +558,29 @@ class FacebookRtbNativeAdTest {
     facebookRtbNativeAd.untrackView(gmaContainerView)
 
     verify(metaNativeAd).unregisterView()
+    verify(metaNativeAd).destroy()
+    verify(metaMediaView).destroy()
+  }
+
+  @Test
+  fun untrackView_withoutRender_doesNotCrash() {
+    facebookRtbNativeAd.untrackView(gmaContainerView)
+    // No crash indicates success.
+  }
+
+  @Test
+  fun untrackView_multipleTimes_destroysMetaAdAssetsOnce() {
+    Mockito.mockStatic(NativeAdBase::class.java).use {
+      whenever(NativeAdBase.fromBidPayload(any(), any(), any())) doReturn metaNativeAd
+      facebookRtbNativeAd.render(mediationNativeAdConfiguration)
+    }
+
+    facebookRtbNativeAd.untrackView(gmaContainerView)
+    facebookRtbNativeAd.untrackView(gmaContainerView)
+
+    verify(metaNativeAd).unregisterView()
+    verify(metaNativeAd).destroy()
+    verify(metaMediaView).destroy()
   }
 
   private companion object {

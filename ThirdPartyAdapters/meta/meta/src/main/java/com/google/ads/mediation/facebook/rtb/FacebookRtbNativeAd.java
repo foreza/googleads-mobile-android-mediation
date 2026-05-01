@@ -365,6 +365,12 @@ public class FacebookRtbNativeAd extends NativeAdMapper {
   public void untrackView(@NonNull View view) {
     if (nativeAdBase != null) {
       nativeAdBase.unregisterView();
+      nativeAdBase.destroy();
+      nativeAdBase = null;
+    }
+    if (mediaView != null) {
+      mediaView.destroy();
+      mediaView = null;
     }
     super.untrackView(view);
   }
